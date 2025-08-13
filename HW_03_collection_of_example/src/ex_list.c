@@ -24,7 +24,6 @@ struct my_data {
 // list initialisation
 static LIST_HEAD(my_list);
 
-
 // Add item to list
 static void add_item(int val)
 {
@@ -187,11 +186,9 @@ static int param_set_val(const char *val, const struct kernel_param *kp)
 	return 0;
 }
 
-static const struct kernel_param_ops cmd_ops = {
-	.set = param_set_cmd,
-	.get = param_get_charp,
-	.free = param_free_charp
-};
+static const struct kernel_param_ops cmd_ops = { .set = param_set_cmd,
+						 .get = param_get_charp,
+						 .free = param_free_charp };
 
 static const struct kernel_param_ops value_ops = {
 	.set = param_set_val,
@@ -211,7 +208,6 @@ MODULE_PARM_DESC(value, "Value for list operations");
 
 // module_param(value, int, 0);
 // MODULE_PARM_DESC(value, "Value for list operations");
-
 
 // Module initialization
 static int __init list_module_init(void)
