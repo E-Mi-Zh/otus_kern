@@ -38,10 +38,4 @@ install: all
 uninstall:
 	rm /lib/modules/$(shell uname -r)/extra/src/$(MODULE_NAME).ko
 
-#install: all
-#	@echo "Installing module..."
-#	sudo install -m 644 -D $(BUILD_DIR)/$(MODULE_NAME).ko /lib/modules/$(shell uname -r)/extra/$(MODULE_NAME).ko
-#	sudo depmod -a
-#	@echo "Module installed. Run 'sudo modprobe my_module' to load it."
-
 .PHONY: all clean format check

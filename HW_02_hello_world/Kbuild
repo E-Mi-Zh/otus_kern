@@ -1,3 +1,1 @@
 obj-m += src/hello_world.o
-#obj-m += src/hello_param.o
-#obj-m += src/hello_param_cb.o
