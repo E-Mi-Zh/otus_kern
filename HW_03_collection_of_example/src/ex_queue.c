@@ -17,8 +17,8 @@ static int value = 0;
 #define MAX_QUEUE_SIZE 32
 
 struct my_data {
-    int total;
-    DECLARE_KFIFO_PTR(fifo, int);
+	int total;
+	DECLARE_KFIFO_PTR(fifo, int);
 };
 
 static struct my_data my_queue;
@@ -26,12 +26,13 @@ static struct my_data my_queue;
 // Add item to queue
 static void enqueue_item(int val)
 {
-    if (kfifo_is_full(&my_queue.fifo)) {
-        pr_err("Queue max size %d reached! Cannot enqueue %d\n", MAX_QUEUE_SIZE, val);
-        return;
-    }
+	if (kfifo_is_full(&my_queue.fifo)) {
+		pr_err("Queue max size %d reached! Cannot enqueue %d\n",
+		       MAX_QUEUE_SIZE, val);
+		return;
+	}
 
-    kfifo_in(&my_queue.fifo, &val, 1);
+	kfifo_in(&my_queue.fifo, &val, 1);
 	my_queue.total += val;
 	pr_info("Enqueued: %d\n", val);
 }
@@ -165,7 +166,8 @@ static const struct kernel_param_ops value_ops = {
 
 // Register parameters with callbacks
 module_param_cb(cmd, &cmd_ops, &cmd, 0644);
-MODULE_PARM_DESC(cmd, "Queue commands: enqueue, dequeue, peek, print, total, clear");
+MODULE_PARM_DESC(cmd,
+		 "Queue commands: enqueue, dequeue, peek, print, total, clear");
 module_param_cb(value, &value_ops, &value, 0644);
 MODULE_PARM_DESC(value, "Value for queue operations");
 
@@ -176,7 +178,8 @@ static int __init queue_module_init(void)
 
 	my_queue.total = 0;
 
-	ret = kfifo_alloc(&my_queue.fifo, MAX_QUEUE_SIZE * sizeof(int), GFP_KERNEL);
+	ret = kfifo_alloc(&my_queue.fifo, MAX_QUEUE_SIZE * sizeof(int),
+			  GFP_KERNEL);
 	if (ret) {
 		pr_err("Failed to allocate queue memory\n");
 		return ret;
@@ -189,7 +192,7 @@ static int __init queue_module_init(void)
 	} else {
 		pr_info("Use echo 'cmd' > /sys/module/ex_queue/parameters/cmd\n");
 		pr_info("and echo 'value' > /sys/module/ex_queue/parameters/value\n");
-		pr_info("to control the list\n");
+		pr_info("to control the tree\n");
 	}
 
 	return 0;
