@@ -195,19 +195,11 @@ static const struct kernel_param_ops value_ops = {
 	.get = param_get_int,
 };
 
-// Регистрация параметров модуля
+// Register parameters with callbacks
 module_param_cb(cmd, &cmd_ops, &cmd, 0644);
 MODULE_PARM_DESC(cmd, "List commands: add, del, find, print, reverse, swap");
-// MODULE_PARM_DESC(cmd, "Команда: add, del, find, print, reverse, swap");
 module_param_cb(value, &value_ops, &value, 0644);
 MODULE_PARM_DESC(value, "Value for list operations");
-// MODULE_PARM_DESC(value, "Значение элемента для операций");
-
-// module_param(cmd, charp, 0);
-// MODULE_PARM_DESC(cmd, "List commands: add, del, find, print, reverse, swap");
-
-// module_param(value, int, 0);
-// MODULE_PARM_DESC(value, "Value for list operations");
 
 // Module initialization
 static int __init list_module_init(void)
