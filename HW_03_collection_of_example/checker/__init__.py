@@ -2,6 +2,7 @@
 # Expose main testing components
 from .list_tester import ListModuleTester
 from .queue_tester import QueueModuleTester
+from .tree_tester import TreeModuleTester
 from .main import main
 
-__all__ = ['ListModuleTester', 'QueueModuleTester', 'main']
+__all__ = ['ListModuleTester', 'QueueModuleTester', 'TreeModuleTester', 'main']
