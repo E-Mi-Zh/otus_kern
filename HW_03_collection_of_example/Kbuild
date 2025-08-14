@@ -1,3 +1,2 @@
 obj-m += src/ex_list.o
-#obj-m += src/hello_param.o
-#obj-m += src/hello_param_cb.o
+obj-m += src/ex_queue.o

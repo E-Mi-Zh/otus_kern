@@ -1,6 +1,9 @@
 PWD := $(shell pwd)
 KDIR ?= /lib/modules/$(shell uname -r)/build
-MODULE_NAME := ex_list
+
+LIST_MODULE := ex_list
+QUEUE_MODULE := ex_queue
+TEST_SCRIPT := checker/main.py
 
 SRC_DIR := $(PWD)/src
 BUILD_DIR := $(PWD)/build
@@ -21,35 +24,41 @@ all:
 
 clean:
 	$(MAKE) -C $(KDIR) M=$(PWD) clean
+	rm dmesg_failure.log
 
 format:
 	$(CLANG_FORMAT) $(CLANG_FORMAT_FLAGS) $(FORMAT_FILES)
 	@echo "Code formatted with clang-format"
 
-check: install
-#	sudo dmesg -C
-#	chmod +x $(TEST_SCRIPT)
-	modprobe $(MODULE_NAME)
-	checker/main.py $(MODULE_NAME)
-	rmmod $(MODULE_NAME)
-#	sudo ./$(TEST_SCRIPT)
+check: check-list check-queue
+
+check-list:
+	$(TEST_SCRIPT) list $(LIST_MODULE)
+
+check-queue:
+	$(TEST_SCRIPT) queue $(QUEUE_MODULE)
 
 install: all
 	@echo "Installing module to /lib/modules/$(shell uname -r)/extra/src"
 	$(MAKE) -C $(KDIR) M=$(PWD) modules_install
 	depmod -a
-	@echo "Module installed. Run 'sudo modprobe $(MODULE_NAME)' to load"
+	@echo "Modules installed."
+	@echo "Run 'sudo modprobe $(LIST_MODULE)' to load"
+	@echo "Run 'sudo modprobe $(QUEUE_MODULE)' to load"
 
 uninstall:
-	rm /lib/modules/$(shell uname -r)/extra/src/$(MODULE_NAME).ko
+	rm /lib/modules/$(shell uname -r)/extra/src/$(LIST_MODULE).ko
+	rm /lib/modules/$(shell uname -r)/extra/src/$(QUEUE_MODULE).ko
 	depmod -a
-	@echo "Module uninstalled"
+	@echo "Modules uninstalled"
 
 help:
 	@echo "Available targets:"
-	@echo "  all       - Build the kernel module (default)"
-	@echo "  clean     - Clean build artifacts"
-	@echo "  format    - Format source code with clang-format"
-	@echo "  check     - Build and run tests"
-	@echo "  install   - Install module to system"
-	@echo "  uninstall - Remove module from system"
+	@echo "  all          - Build the kernel module (default)"
+	@echo "  clean        - Clean build artifacts"
+	@echo "  format       - Format source code with clang-format"
+	@echo "  check        - Build and test all modules"
+	@echo "  check-list   - Build and test list module"
+	@echo "  check-queue  - Build and test queue module"
+	@echo "  install      - Install module to system"
+	@echo "  uninstall    - Remove module from system"
