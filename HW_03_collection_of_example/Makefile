@@ -3,6 +3,7 @@ KDIR ?= /lib/modules/$(shell uname -r)/build
 
 LIST_MODULE := ex_list
 QUEUE_MODULE := ex_queue
+TREE_MODULE := ex_rb_tree
 TEST_SCRIPT := checker/main.py
 
 SRC_DIR := $(PWD)/src
@@ -24,19 +25,22 @@ all:
 
 clean:
 	$(MAKE) -C $(KDIR) M=$(PWD) clean
-	rm dmesg_failure.log
+	rm -f dmesg_failure.log
 
 format:
 	$(CLANG_FORMAT) $(CLANG_FORMAT_FLAGS) $(FORMAT_FILES)
 	@echo "Code formatted with clang-format"
 
-check: check-list check-queue
+check: check-list check-queue check-tree
 
 check-list:
 	$(TEST_SCRIPT) list $(LIST_MODULE)
 
 check-queue:
 	$(TEST_SCRIPT) queue $(QUEUE_MODULE)
+
+check-tree:
+	$(TEST_SCRIPT) queue $(TREE_MODULE)
 
 install: all
 	@echo "Installing module to /lib/modules/$(shell uname -r)/extra/src"
@@ -45,10 +49,12 @@ install: all
 	@echo "Modules installed."
 	@echo "Run 'sudo modprobe $(LIST_MODULE)' to load"
 	@echo "Run 'sudo modprobe $(QUEUE_MODULE)' to load"
+	@echo "Run 'sudo modprobe $(TREE_MODULE)' to load"
 
 uninstall:
-	rm /lib/modules/$(shell uname -r)/extra/src/$(LIST_MODULE).ko
-	rm /lib/modules/$(shell uname -r)/extra/src/$(QUEUE_MODULE).ko
+	rm -f /lib/modules/$(shell uname -r)/extra/src/$(LIST_MODULE).ko
+	rm -f /lib/modules/$(shell uname -r)/extra/src/$(QUEUE_MODULE).ko
+	rm -f /lib/modules/$(shell uname -r)/extra/src/$(TREE_MODULE).ko
 	depmod -a
 	@echo "Modules uninstalled"
 
@@ -57,8 +63,9 @@ help:
 	@echo "  all          - Build the kernel module (default)"
 	@echo "  clean        - Clean build artifacts"
 	@echo "  format       - Format source code with clang-format"
-	@echo "  check        - Build and test all modules"
-	@echo "  check-list   - Build and test list module"
-	@echo "  check-queue  - Build and test queue module"
+	@echo "  check        - Test all modules"
+	@echo "  check-list   - Test list module"
+	@echo "  check-queue  - Test queue module"
+	@echo "  check-tree   - Test queue module"
 	@echo "  install      - Install module to system"
 	@echo "  uninstall    - Remove module from system"
