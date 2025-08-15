@@ -4,6 +4,7 @@ KDIR ?= /lib/modules/$(shell uname -r)/build
 LIST_MODULE := ex_list
 QUEUE_MODULE := ex_queue
 TREE_MODULE := ex_rb_tree
+BITMAP_MODULE := ex_bitmap
 TEST_SCRIPT := checker/main.py
 
 SRC_DIR := $(PWD)/src
@@ -31,7 +32,7 @@ format:
 	$(CLANG_FORMAT) $(CLANG_FORMAT_FLAGS) $(FORMAT_FILES)
 	@echo "Code formatted with clang-format"
 
-check: check-list check-queue check-tree
+check: check-list check-queue check-tree check-bitmap
 
 check-list:
 	$(TEST_SCRIPT) list $(LIST_MODULE)
@@ -40,7 +41,10 @@ check-queue:
 	$(TEST_SCRIPT) queue $(QUEUE_MODULE)
 
 check-tree:
-	$(TEST_SCRIPT) queue $(TREE_MODULE)
+	$(TEST_SCRIPT) tree $(TREE_MODULE)
+
+check-bitmap:
+	$(TEST_SCRIPT) bitmap $(BITMAP_MODULE)
 
 install: all
 	@echo "Installing module to /lib/modules/$(shell uname -r)/extra/src"
@@ -50,11 +54,13 @@ install: all
 	@echo "Run 'sudo modprobe $(LIST_MODULE)' to load"
 	@echo "Run 'sudo modprobe $(QUEUE_MODULE)' to load"
 	@echo "Run 'sudo modprobe $(TREE_MODULE)' to load"
+	@echo "Run 'sudo modprobe $(BITMAP_MODULE)' to load"
 
 uninstall:
 	rm -f /lib/modules/$(shell uname -r)/extra/src/$(LIST_MODULE).ko
 	rm -f /lib/modules/$(shell uname -r)/extra/src/$(QUEUE_MODULE).ko
 	rm -f /lib/modules/$(shell uname -r)/extra/src/$(TREE_MODULE).ko
+	rm -f /lib/modules/$(shell uname -r)/extra/src/$(BITMAP_MODULE).ko
 	depmod -a
 	@echo "Modules uninstalled"
 
@@ -67,5 +73,6 @@ help:
 	@echo "  check-list   - Test list module"
 	@echo "  check-queue  - Test queue module"
 	@echo "  check-tree   - Test queue module"
+	@echo "  check-bitmap   - Test bitmap module"
 	@echo "  install      - Install module to system"
 	@echo "  uninstall    - Remove module from system"
