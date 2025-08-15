@@ -5,3 +5,4 @@ obj-m += src/ex_bitmap.o
 obj-m += src/ex_bin_search.o
 obj-m += src/ex_bin_tree.o
 obj-m += src/ex_stack.o
+obj-m += src/ex_brackets.o
