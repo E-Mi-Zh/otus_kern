@@ -85,7 +85,7 @@ static void print_arr(void)
 	list_for_each_entry(entry, &my_list, node) {
 		pr_cont(" %u", entry->val);
 
-		// Проверка сортировки при выводе
+		// Check sort on exit
 		if (i > 0 && entry->val < prev) {
 			sorted = false;
 		}

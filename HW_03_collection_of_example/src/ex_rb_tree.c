@@ -36,7 +36,6 @@ static void tree_insert(int val)
 	new_item->data = val;
 
 	while (*new) {
-		// struct my_data *this = rb_entry(*new, struct my_data, node);
 		struct my_data *this = container_of(*new, struct my_data, node);
 		parent = *new;
 
@@ -203,7 +202,7 @@ static int __init tree_module_init(void)
 	} else {
 		pr_info("Use echo 'cmd' > /sys/module/%s/parameters/cmd\n",
 			KBUILD_MODNAME);
-		pr_info("and echo 'index' > /sys/module/%s/parameters/index\n",
+		pr_info("and echo 'value' > /sys/module/%s/parameters/value\n",
 			KBUILD_MODNAME);
 		pr_info("to control the rb_tree\n");
 	}

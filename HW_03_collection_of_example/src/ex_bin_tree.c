@@ -140,7 +140,6 @@ static void process_command(void)
 	}
 }
 
-/* Callbacks и параметры модуля остаются без изменений */
 static int param_set_cmd(const char *val, const struct kernel_param *kp)
 {
 	int ret;
@@ -181,14 +180,20 @@ static int __init tree_module_init(void)
 {
 	pr_info("%s module loaded\n", KBUILD_MODNAME);
 
-	// Инициализация дерева
 	int init_values[] = { 50, 30, 20, 40, 70, 60, 80 };
 	for (int i = 0; i < ARRAY_SIZE(init_values); i++) {
 		root = insert_node(root, init_values[i]);
 	}
 
-	if (cmd)
+	if (cmd) {
 		process_command();
+	} else {
+		pr_info("Use echo 'cmd' > /sys/module/%s/parameters/cmd\n",
+			KBUILD_MODNAME);
+		pr_info("and echo 'value' > /sys/module/%s/parameters/value\n",
+			KBUILD_MODNAME);
+		pr_info("to control the bin_tree\n");
+	}
 
 	return 0;
 }
