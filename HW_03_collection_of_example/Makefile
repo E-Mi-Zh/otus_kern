@@ -6,6 +6,7 @@ QUEUE_MODULE := ex_queue
 RB_TREE_MODULE := ex_rb_tree
 BITMAP_MODULE := ex_bitmap
 BIN_SEARCH_MODULE := ex_bin_search
+BIN_TREE_MODULE := ex_bin_tree
 TEST_DIR := checker
 TEST_SCRIPT := $(TEST_DIR)/main.py
 
@@ -26,7 +27,8 @@ PYTHON_FORMAT_FILES = \
 	$(TEST_DIR)/queue_tester.py \
 	$(TEST_DIR)/rb_tree_tester.py \
 	$(TEST_DIR)/bitmap_tester.py \
-	$(TEST_DIR)/bin_search_tester.py
+	$(TEST_DIR)/bin_search_tester.py \
+	$(TEST_DIR)/bin_tree_tester.py
 
 $(shell mkdir -p $(BUILD_DIR))
 
@@ -47,7 +49,7 @@ format:
 format-python:
 	   $(PYTHON_FORMAT_TOOL) $(PYTHON_FORMAT_FILES)
 
-check: check-list check-queue check-rb_tree check-bitmap check-bin_search
+check: check-list check-queue check-rb_tree check-bitmap check-bin_search check-bin_tree
 
 check-list:
 	$(TEST_SCRIPT) list $(LIST_MODULE)
@@ -64,6 +66,9 @@ check-bitmap:
 check-bin_search:
 	$(TEST_SCRIPT) bin_search $(BIN_SEARCH_MODULE)
 
+check-bin_tree:
+	$(TEST_SCRIPT) bin_tree $(BIN_TREE_MODULE)
+
 install: all
 	@echo "Installing module to /lib/modules/$(shell uname -r)/extra/src"
 	$(MAKE) -C $(KDIR) M=$(PWD) modules_install
@@ -74,6 +79,7 @@ install: all
 	@echo "Run 'sudo modprobe $(RB_TREE_MODULE)' to load"
 	@echo "Run 'sudo modprobe $(BITMAP_MODULE)' to load"
 	@echo "Run 'sudo modprobe $(BIN_SEARCH_MODULE)' to load"
+	@echo "Run 'sudo modprobe $(BIN_TREE_MODULE)' to load"
 
 uninstall:
 	rm -f /lib/modules/$(shell uname -r)/extra/src/$(LIST_MODULE).ko
@@ -81,6 +87,7 @@ uninstall:
 	rm -f /lib/modules/$(shell uname -r)/extra/src/$(RB_TREE_MODULE).ko
 	rm -f /lib/modules/$(shell uname -r)/extra/src/$(BITMAP_MODULE).ko
 	rm -f /lib/modules/$(shell uname -r)/extra/src/$(BIN_SEARCH_MODULE).ko
+	rm -f /lib/modules/$(shell uname -r)/extra/src/$(BIN_TREE_MODULE).ko
 	depmod -a
 	@echo "Modules uninstalled"
 
@@ -95,5 +102,6 @@ help:
 	@echo "  check-rb_tree    - Test rb_tree module"
 	@echo "  check-bitmap     - Test bitmap module"
 	@echo "  check-bin_search - Test bin_search module"
+	@echo "  check-bin_tree   - Test bin_tree module"
 	@echo "  install          - Install module to system"
 	@echo "  uninstall        - Remove module from system"

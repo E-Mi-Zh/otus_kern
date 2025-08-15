@@ -3,3 +3,4 @@ obj-m += src/ex_queue.o
 obj-m += src/ex_rb_tree.o
 obj-m += src/ex_bitmap.o
 obj-m += src/ex_bin_search.o
+obj-m += src/ex_bin_tree.o
