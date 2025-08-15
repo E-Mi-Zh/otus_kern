@@ -42,7 +42,7 @@ class BaseModuleTester:
     def set_parameter(self, param, value):
         """Set module parameter via sysfs"""
         param_path = f"{self.sysfs_path}/{param}"
-        self.run_command(f"echo {value} | sudo tee {param_path}")
+        self.run_command(f"echo '{value}' | sudo tee {param_path}")
         time.sleep(0.2)
 
     def get_dmesg_output(self):
