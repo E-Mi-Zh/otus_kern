@@ -9,6 +9,7 @@ BIN_SEARCH_MODULE := ex_bin_search
 BIN_TREE_MODULE := ex_bin_tree
 STACK_MODULE := ex_stack
 BRACKETS_MODULE := ex_brackets
+STACK2_MODULE := ex_stack2
 TEST_DIR := checker
 TEST_SCRIPT := $(TEST_DIR)/main.py
 
@@ -32,7 +33,8 @@ PYTHON_FORMAT_FILES = \
 	$(TEST_DIR)/bin_search_tester.py \
 	$(TEST_DIR)/bin_tree_tester.py \
 	$(TEST_DIR)/stack_tester.py \
-	$(TEST_DIR)/brackets_tester.py
+	$(TEST_DIR)/brackets_tester.py \
+	$(TEST_DIR)/stack2_tester.py \
 
 $(shell mkdir -p $(BUILD_DIR))
 
@@ -53,7 +55,7 @@ format:
 format-python:
 	   $(PYTHON_FORMAT_TOOL) $(PYTHON_FORMAT_FILES)
 
-check: check-list check-queue check-rb_tree check-bitmap check-bin_search check-bin_tree check-stack check-brackets
+check: check-list check-queue check-rb_tree check-bitmap check-bin_search check-bin_tree check-stack check-brackets check-stack2
 
 check-list:
 	$(TEST_SCRIPT) list $(LIST_MODULE)
@@ -79,6 +81,9 @@ check-stack:
 check-brackets:
 	$(TEST_SCRIPT) brackets $(BRACKETS_MODULE)
 
+check-stack2:
+	$(TEST_SCRIPT) stack2 $(STACK2_MODULE)
+
 install: all
 	@echo "Installing module to /lib/modules/$(shell uname -r)/extra/src"
 	$(MAKE) -C $(KDIR) M=$(PWD) modules_install
@@ -92,6 +97,7 @@ install: all
 	@echo "Run 'sudo modprobe $(BIN_TREE_MODULE)' to load"
 	@echo "Run 'sudo modprobe $(STACK_MODULE)' to load"
 	@echo "Run 'sudo modprobe $(BRACKETS_MODULE)' to load"
+	@echo "Run 'sudo modprobe $(STACK2_MODULE)' to load"
 
 uninstall:
 	rm -f /lib/modules/$(shell uname -r)/extra/src/$(LIST_MODULE).ko
@@ -102,6 +108,7 @@ uninstall:
 	rm -f /lib/modules/$(shell uname -r)/extra/src/$(BIN_TREE_MODULE).ko
 	rm -f /lib/modules/$(shell uname -r)/extra/src/$(STACK_MODULE).ko
 	rm -f /lib/modules/$(shell uname -r)/extra/src/$(BRACKETS_MODULE).ko
+	rm -f /lib/modules/$(shell uname -r)/extra/src/$(STACK2_MODULE).ko
 	depmod -a
 	@echo "Modules uninstalled"
 
@@ -119,5 +126,6 @@ help:
 	@echo "  check-bin_tree   - Test bin_tree module"
 	@echo "  check-stack      - Test stack module"
 	@echo "  check-brackets   - Test brackets module"
+	@echo "  check-stack2     - Test stack2 module"
 	@echo "  install          - Install module to system"
 	@echo "  uninstall        - Remove module from system"
