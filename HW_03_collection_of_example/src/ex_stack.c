@@ -164,6 +164,7 @@ static int __init stack_module_init(void)
 	return 0;
 }
 
+// Module cleanup
 static void __exit stack_module_exit(void)
 {
 	clear_stack();
