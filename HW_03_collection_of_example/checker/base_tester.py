@@ -4,10 +4,11 @@ import time
 import subprocess
 import re
 
+
 class BaseModuleTester:
     def __init__(self, module_name):
         self.module_name = module_name
-        #self.module_path = f"{module_name}.ko"
+        # self.module_path = f"{module_name}.ko"
         self.module_path = module_name
         self.sysfs_path = f"/sys/module/{module_name}/parameters"
         self.test_count = 0
@@ -16,9 +17,14 @@ class BaseModuleTester:
 
     def run_command(self, cmd, check=True):
         """Execute shell commands and return result"""
-        result = subprocess.run(cmd, shell=True, check=check,
-                              stdout=subprocess.PIPE, stderr=subprocess.PIPE,
-                              text=True)
+        result = subprocess.run(
+            cmd,
+            shell=True,
+            check=check,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True,
+        )
         return result.stdout.strip()
 
     def load_module(self):
@@ -76,14 +82,12 @@ class BaseModuleTester:
 
         self.load_module()
         self.assert_dmesg_contains(
-            rf"{self.module_name} module loaded",
-            "Module loading"
+            rf"{self.module_name} module loaded", "Module loading"
         )
 
         self.unload_module()
         self.assert_dmesg_contains(
-            rf"{self.module_name} module unloaded",
-            "Module unloading"
+            rf"{self.module_name} module unloaded", "Module unloading"
         )
 
     def print_summary(self):

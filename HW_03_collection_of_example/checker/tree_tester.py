@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 from .base_tester import BaseModuleTester
 
+
 class TreeModuleTester(BaseModuleTester):
     def test_tree_operations(self):
         """RB-tree specific test operations"""
