@@ -15,7 +15,7 @@ MODULE_DESCRIPTION("Linux kernel module for bitmap operations demonstration");
 static char *cmd = NULL;
 static unsigned int index = 0;
 
-static unsigned long my_bitmap[MAX_BITS / BITS_PER_LONG] = { 0 };
+static unsigned long my_bitmap[BITS_TO_LONGS(MAX_BITS)] = { 0 };
 
 // Set bit at pos idx
 static void my_set_bit(unsigned int idx)
