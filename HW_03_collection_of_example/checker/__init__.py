@@ -6,6 +6,7 @@ from .rb_tree_tester import RB_TreeModuleTester
 from .bitmap_tester import BitmapModuleTester
 from .bin_search_tester import BSearchModuleTester
 from .bin_tree_tester import Bin_TreeModuleTester
+from .stack_tester import StackModuleTester
 from .main import main
 
 __all__ = [
@@ -15,5 +16,6 @@ __all__ = [
     "BitmapModuleTester",
     "BSearchModuleTester",
     "Bin_TreeModuleTester",
+    "StackModuleTester",
     "main",
 ]
