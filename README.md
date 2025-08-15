@@ -3,3 +3,4 @@
 * [HW\_01\_build\_kernel](https://github.com/E-Mi-Zh/otus_kern/tree/master/HW_01_build_kernel) - Сборка ядра
 * [HW\_02\_hello\_world](https://github.com/E-Mi-Zh/otus_kern/tree/master/HW_02_hello_world) - Модуль
 ядра с параметрами и коллбэками
+* [HW\_03\_collection\_of\_example](https://github.com/E-Mi-Zh/otus_kern/tree/master/HW_03_collection_of_example) - Набор модулей ядра, реализующих работу с основными структурами данных.
