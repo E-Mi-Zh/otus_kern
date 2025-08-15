@@ -3,6 +3,13 @@
 from .list_tester import ListModuleTester
 from .queue_tester import QueueModuleTester
 from .tree_tester import TreeModuleTester
+from .bitmap_tester import BitmapModuleTester
 from .main import main
 
-__all__ = ['ListModuleTester', 'QueueModuleTester', 'TreeModuleTester', 'main']
+__all__ = [
+    'ListModuleTester',
+    'QueueModuleTester',
+    'TreeModuleTester',
+    'BitmapModuleTester',
+    'main'
+]
