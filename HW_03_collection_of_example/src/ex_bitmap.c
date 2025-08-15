@@ -18,7 +18,7 @@ static unsigned int index = 0;
 static unsigned long my_bitmap[MAX_BITS / BITS_PER_LONG] = { 0 };
 
 // Set bit at pos idx
-static void set_bit(unsigned int idx)
+static void my_set_bit(unsigned int idx)
 {
 	if (idx >= MAX_BITS) {
 		pr_err("Index %u out of bounds (max %d)\n", idx, MAX_BITS - 1);
@@ -30,7 +30,7 @@ static void set_bit(unsigned int idx)
 }
 
 // Clear bit at pos idx
-static void clear_bit(unsigned int idx)
+static void my_clear_bit(unsigned int idx)
 {
 	if (idx >= MAX_BITS) {
 		pr_err("Index %u out of bounds (max %d)\n", idx, MAX_BITS - 1);
@@ -69,7 +69,7 @@ static void flip_bit(unsigned int idx)
 }
 
 // Find first non-zero bit
-static void find_first_bit(void)
+static void my_find_first_bit(void)
 {
 	unsigned int idx;
 
@@ -162,19 +162,19 @@ static void process_command(void)
 	pr_info("Executing command: %s %u\n", cmd, index);
 
 	if (strcmp(cmd, "set") == 0) {
-		set_bit(index);
+		my_set_bit(index);
 	} else if (strcmp(cmd, "clear") == 0) {
-		clear_bit(index);
+		my_clear_bit(index);
 	} else if (strcmp(cmd, "test") == 0) {
 		my_test_bit(index);
 	} else if (strcmp(cmd, "flip") == 0) {
 		flip_bit(index);
 	} else if (strcmp(cmd, "find_set") == 0) {
-		find_first_bit();
+		my_find_first_bit();
 	} else if (strcmp(cmd, "find_zero") == 0) {
 		find_first_zero();
 	} else if (strcmp(cmd, "count") == 0) {
-		count_all_bits();
+		count_bits();
 	} else if (strcmp(cmd, "test_all_set") == 0) {
 		test_all_bits();
 	} else if (strcmp(cmd, "test_all_clear") == 0) {
@@ -182,9 +182,9 @@ static void process_command(void)
 	} else if (strcmp(cmd, "print") == 0) {
 		print_bitmap();
 	} else if (strcmp(cmd, "clear_all") == 0) {
-		clear_all_bitmap();
+		clear_bitmap();
 	} else if (strcmp(cmd, "set_all") == 0) {
-		set_all_bitmap();
+		set_bitmap();
 	} else {
 		pr_info("Unknown command: %s\n", cmd);
 		pr_info("Available commands: set, clear, test, flip, find_set, find_zero,\n");
