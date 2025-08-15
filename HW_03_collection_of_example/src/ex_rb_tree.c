@@ -192,7 +192,7 @@ static const struct kernel_param_ops value_ops = {
 module_param_cb(cmd, &cmd_ops, &cmd, 0644);
 MODULE_PARM_DESC(cmd, "Command: insert, delete, find, print, clear");
 module_param_cb(value, &value_ops, &value, 0644);
-MODULE_PARM_DESC(value, "Value for tree operations");
+MODULE_PARM_DESC(value, "Value for rb_tree operations");
 
 static int __init tree_module_init(void)
 {
@@ -205,7 +205,7 @@ static int __init tree_module_init(void)
 			KBUILD_MODNAME);
 		pr_info("and echo 'index' > /sys/module/%s/parameters/index\n",
 			KBUILD_MODNAME);
-		pr_info("to control the tree\n");
+		pr_info("to control the rb_tree\n");
 	}
 	return 0;
 }

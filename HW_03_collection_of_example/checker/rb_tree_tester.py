@@ -2,7 +2,7 @@
 from .base_tester import BaseModuleTester
 
 
-class TreeModuleTester(BaseModuleTester):
+class RB_TreeModuleTester(BaseModuleTester):
     def test_tree_operations(self):
         """RB-tree specific test operations"""
         print("\n=== RB-Tree Operation Tests ===")
@@ -42,7 +42,7 @@ class TreeModuleTester(BaseModuleTester):
             # Test print
             print("\n--- Print Operation ---")
             self.set_parameter("cmd", "print")
-            self.assert_dmesg_contains(r"Tree contents", "Print tree structure")
+            self.assert_dmesg_contains(r"Tree contents", "Print rb_tree structure")
             self.assert_dmesg_contains(r"50", "Verify root node in output")
             self.assert_dmesg_contains(r"red|black", "Verify color markers")
 
@@ -60,11 +60,11 @@ class TreeModuleTester(BaseModuleTester):
             # Test clear
             print("\n--- Clear Operation ---")
             self.set_parameter("cmd", "clear")
-            self.assert_dmesg_contains(r"Tree cleared", "Clear tree")
+            self.assert_dmesg_contains(r"Tree cleared", "Clear rb_tree")
 
-            # Verify empty tree
+            # Verify empty rb_tree
             self.set_parameter("cmd", "print")
-            self.assert_dmesg_contains(r"Tree is empty", "Verify empty tree")
+            self.assert_dmesg_contains(r"Tree is empty", "Verify empty rb_tree")
 
         finally:
             self.unload_module()

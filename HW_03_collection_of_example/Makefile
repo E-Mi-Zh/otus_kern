@@ -3,7 +3,7 @@ KDIR ?= /lib/modules/$(shell uname -r)/build
 
 LIST_MODULE := ex_list
 QUEUE_MODULE := ex_queue
-TREE_MODULE := ex_rb_tree
+RB_TREE_MODULE := ex_rb_tree
 BITMAP_MODULE := ex_bitmap
 BIN_SEARCH_MODULE := ex_bin_search
 TEST_DIR := checker
@@ -24,7 +24,7 @@ PYTHON_FORMAT_FILES = \
 	$(TEST_DIR)/main.py \
 	$(TEST_DIR)/list_tester.py \
 	$(TEST_DIR)/queue_tester.py \
-	$(TEST_DIR)/tree_tester.py \
+	$(TEST_DIR)/rb_tree_tester.py \
 	$(TEST_DIR)/bitmap_tester.py \
 	$(TEST_DIR)/bin_search_tester.py
 
@@ -47,7 +47,7 @@ format:
 format-python:
 	   $(PYTHON_FORMAT_TOOL) $(PYTHON_FORMAT_FILES)
 
-check: check-list check-queue check-tree check-bitmap check-bin_search
+check: check-list check-queue check-rb_tree check-bitmap check-bin_search
 
 check-list:
 	$(TEST_SCRIPT) list $(LIST_MODULE)
@@ -55,8 +55,8 @@ check-list:
 check-queue:
 	$(TEST_SCRIPT) queue $(QUEUE_MODULE)
 
-check-tree:
-	$(TEST_SCRIPT) tree $(TREE_MODULE)
+check-rb_tree:
+	$(TEST_SCRIPT) rb_tree $(RB_TREE_MODULE)
 
 check-bitmap:
 	$(TEST_SCRIPT) bitmap $(BITMAP_MODULE)
@@ -71,14 +71,14 @@ install: all
 	@echo "Modules installed."
 	@echo "Run 'sudo modprobe $(LIST_MODULE)' to load"
 	@echo "Run 'sudo modprobe $(QUEUE_MODULE)' to load"
-	@echo "Run 'sudo modprobe $(TREE_MODULE)' to load"
+	@echo "Run 'sudo modprobe $(RB_TREE_MODULE)' to load"
 	@echo "Run 'sudo modprobe $(BITMAP_MODULE)' to load"
 	@echo "Run 'sudo modprobe $(BIN_SEARCH_MODULE)' to load"
 
 uninstall:
 	rm -f /lib/modules/$(shell uname -r)/extra/src/$(LIST_MODULE).ko
 	rm -f /lib/modules/$(shell uname -r)/extra/src/$(QUEUE_MODULE).ko
-	rm -f /lib/modules/$(shell uname -r)/extra/src/$(TREE_MODULE).ko
+	rm -f /lib/modules/$(shell uname -r)/extra/src/$(RB_TREE_MODULE).ko
 	rm -f /lib/modules/$(shell uname -r)/extra/src/$(BITMAP_MODULE).ko
 	rm -f /lib/modules/$(shell uname -r)/extra/src/$(BIN_SEARCH_MODULE).ko
 	depmod -a
@@ -92,7 +92,7 @@ help:
 	@echo "  check            - Test all modules"
 	@echo "  check-list       - Test list module"
 	@echo "  check-queue      - Test queue module"
-	@echo "  check-tree       - Test queue module"
+	@echo "  check-rb_tree    - Test rb_tree module"
 	@echo "  check-bitmap     - Test bitmap module"
 	@echo "  check-bin_search - Test bin_search module"
 	@echo "  install          - Install module to system"

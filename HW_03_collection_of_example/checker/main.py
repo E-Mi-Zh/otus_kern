@@ -8,7 +8,7 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from checker.list_tester import ListModuleTester
 from checker.queue_tester import QueueModuleTester
-from checker.tree_tester import TreeModuleTester
+from checker.rb_tree_tester import RB_TreeModuleTester
 from checker.bitmap_tester import BitmapModuleTester
 from checker.bin_search_tester import BSearchModuleTester
 
@@ -18,8 +18,8 @@ def main():
     parser = argparse.ArgumentParser(description="Kernel module tester")
     parser.add_argument(
         "module_type",
-        choices=["list", "queue", "tree", "bitmap", "bin_search"],
-        help="Module type to test (list, queue, tree, bitmap or bin_search)",
+        choices=["list", "queue", "rb_tree", "bitmap", "bin_search"],
+        help="Module type to test (list, queue, rb_tree, bitmap or bin_search)",
     )
     parser.add_argument("module_name", help="Name of the kernel module to test")
     args = parser.parse_args()
@@ -28,7 +28,7 @@ def main():
     testers = {
         "list": ListModuleTester,
         "queue": QueueModuleTester,
-        "tree": TreeModuleTester,
+        "rb_tree": RB_TreeModuleTester,
         "bitmap": BitmapModuleTester,
         "bin_search": BSearchModuleTester,
     }
