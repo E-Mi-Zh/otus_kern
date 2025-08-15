@@ -4,7 +4,7 @@ from .list_tester import ListModuleTester
 from .queue_tester import QueueModuleTester
 from .tree_tester import TreeModuleTester
 from .bitmap_tester import BitmapModuleTester
-from .bsearch_tester import BSearchModuleTester
+from .bin_search_tester import BSearchModuleTester
 from .main import main
 
 __all__ = [
