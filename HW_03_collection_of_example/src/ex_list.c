@@ -110,13 +110,14 @@ static void reverse_list(void)
 static void swap_neighbors(int val)
 {
 	struct my_data *item, *next_item;
+	int temp;
 
 	list_for_each_entry(item, &my_list, list) {
 		if (item->data == val && !list_is_last(&item->list, &my_list)) {
 			next_item = list_entry(item->list.next, struct my_data,
 					       list);
 
-			int temp = item->data;
+			temp = item->data;
 			item->data = next_item->data;
 			next_item->data = temp;
 
@@ -209,8 +210,10 @@ static int __init list_module_init(void)
 	if (cmd) {
 		process_command();
 	} else {
-		pr_info("Use echo 'cmd' > /sys/module/ex_list/parameters/cmd");
-		pr_info("and echo 'value' > /sys/module/ex_list/parameters/value");
+		pr_info("Use echo 'cmd' > /sys/module/%s/parameters/cmd\n",
+			KBUILD_MODNAME);
+		pr_info("and echo 'index' > /sys/module/%s/parameters/index\n",
+			KBUILD_MODNAME);
 		pr_info("to control the list\n");
 	}
 

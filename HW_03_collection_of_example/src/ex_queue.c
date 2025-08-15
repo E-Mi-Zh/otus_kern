@@ -54,6 +54,7 @@ static void dequeue_item(void)
 static void peek_item(void)
 {
 	int val;
+
 	if (kfifo_peek(&my_queue.fifo, &val)) {
 		pr_info("Front item: %d\n", val);
 	} else {
@@ -190,8 +191,10 @@ static int __init queue_module_init(void)
 	if (cmd) {
 		process_command();
 	} else {
-		pr_info("Use echo 'cmd' > /sys/module/ex_queue/parameters/cmd\n");
-		pr_info("and echo 'value' > /sys/module/ex_queue/parameters/value\n");
+		pr_info("Use echo 'cmd' > /sys/module/%s/parameters/cmd\n",
+			KBUILD_MODNAME);
+		pr_info("and echo 'index' > /sys/module/%s/parameters/index\n",
+			KBUILD_MODNAME);
 		pr_info("to control the tree\n");
 	}
 

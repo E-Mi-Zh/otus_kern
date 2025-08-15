@@ -72,7 +72,7 @@ static void flip_bit(unsigned int idx)
 static void find_first_bit(void)
 {
 	unsigned int idx;
-	
+
 	idx = find_first_bit(my_bitmap, MAX_BITS);
 	if (idx < MAX_BITS) {
 		pr_info("First set bit found at position %u\n", idx);
@@ -85,7 +85,7 @@ static void find_first_bit(void)
 static void find_first_zero(void)
 {
 	unsigned int idx;
-	
+
 	idx = find_first_zero_bit(my_bitmap, MAX_BITS);
 	if (idx < MAX_BITS) {
 		pr_info("First zero bit found at position %u\n", idx);
@@ -97,7 +97,9 @@ static void find_first_zero(void)
 // Count non-zero bits
 static void count_bits(void)
 {
-	unsigned int count = bitmap_weight(my_bitmap, MAX_BITS);
+	unsigned int count;
+
+	count = bitmap_weight(my_bitmap, MAX_BITS);
 	pr_info("Number of set bits: %u\n", count);
 }
 
@@ -125,7 +127,7 @@ static void test_all_zeros(void)
 static void print_bitmap(void)
 {
 	char buf[MAX_BITS + 1] = { 0 };
-	int i;
+	unsigned int i;
 
 	for (i = 0; i < MAX_BITS; i++) {
 		buf[i] = test_bit(i, my_bitmap) ? '1' : '0';

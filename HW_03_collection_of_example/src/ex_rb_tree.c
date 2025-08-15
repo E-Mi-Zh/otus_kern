@@ -201,8 +201,10 @@ static int __init tree_module_init(void)
 	if (cmd) {
 		process_command();
 	} else {
-		pr_info("Use echo 'cmd' > /sys/module/ex_rb_tree/parameters/cmd");
-		pr_info("and echo 'value' > /sys/module/ex_rb_tree/parameters/value");
+		pr_info("Use echo 'cmd' > /sys/module/%s/parameters/cmd\n",
+			KBUILD_MODNAME);
+		pr_info("and echo 'index' > /sys/module/%s/parameters/index\n",
+			KBUILD_MODNAME);
 		pr_info("to control the tree\n");
 	}
 	return 0;
