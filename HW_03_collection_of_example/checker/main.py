@@ -11,6 +11,7 @@ from checker.queue_tester import QueueModuleTester
 from checker.rb_tree_tester import RB_TreeModuleTester
 from checker.bitmap_tester import BitmapModuleTester
 from checker.bin_search_tester import BSearchModuleTester
+from checker.bin_tree_tester import Bin_TreeModuleTester
 
 
 def main():
@@ -18,8 +19,8 @@ def main():
     parser = argparse.ArgumentParser(description="Kernel module tester")
     parser.add_argument(
         "module_type",
-        choices=["list", "queue", "rb_tree", "bitmap", "bin_search"],
-        help="Module type to test (list, queue, rb_tree, bitmap or bin_search)",
+        choices=["list", "queue", "rb_tree", "bitmap", "bin_search", "bin_tree"],
+        help="Module type to test (list, queue, rb_tree, bitmap, bin_search or bin_tree)",
     )
     parser.add_argument("module_name", help="Name of the kernel module to test")
     args = parser.parse_args()
@@ -31,6 +32,7 @@ def main():
         "rb_tree": RB_TreeModuleTester,
         "bitmap": BitmapModuleTester,
         "bin_search": BSearchModuleTester,
+        "bin_tree": Bin_TreeModuleTester,
     }
     tester = testers[args.module_type](args.module_name)
 
