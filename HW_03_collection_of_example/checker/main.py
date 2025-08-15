@@ -13,6 +13,7 @@ from checker.bitmap_tester import BitmapModuleTester
 from checker.bin_search_tester import BSearchModuleTester
 from checker.bin_tree_tester import Bin_TreeModuleTester
 from checker.stack_tester import StackModuleTester
+from checker.brackets_tester import BracketModuleTester
 
 
 def main():
@@ -28,8 +29,9 @@ def main():
             "bin_search",
             "bin_tree",
             "stack",
+            "brackets",
         ],
-        help="Module type to test (list, queue, rb_tree, bitmap, bin_search, bin_tree or stack)",
+        help="Module type to test (list, queue, rb_tree, bitmap, bin_search, bin_tree, stack or brackets)",
     )
     parser.add_argument("module_name", help="Name of the kernel module to test")
     args = parser.parse_args()
@@ -43,6 +45,7 @@ def main():
         "bin_search": BSearchModuleTester,
         "bin_tree": Bin_TreeModuleTester,
         "stack": StackModuleTester,
+        "brackets": BracketModuleTester,
     }
     tester = testers[args.module_type](args.module_name)
 

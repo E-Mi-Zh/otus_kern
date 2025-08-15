@@ -7,6 +7,7 @@ from .bitmap_tester import BitmapModuleTester
 from .bin_search_tester import BSearchModuleTester
 from .bin_tree_tester import Bin_TreeModuleTester
 from .stack_tester import StackModuleTester
+from .brackets_tester import BracketModuleTester
 from .main import main
 
 __all__ = [
@@ -17,5 +18,6 @@ __all__ = [
     "BSearchModuleTester",
     "Bin_TreeModuleTester",
     "StackModuleTester",
+    "BracketModuleTester",
     "main",
 ]
