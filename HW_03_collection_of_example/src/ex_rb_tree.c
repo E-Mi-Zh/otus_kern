@@ -46,7 +46,8 @@ static void tree_insert(int val)
 			new = &((*new)->rb_right);
 		else {
 			kfree(new_item);
-			pr_info("Insert failed, item %d already exist in tree\n", val);
+			pr_info("Insert failed, item %d already exist in tree\n",
+				val);
 			return;
 		}
 	}
