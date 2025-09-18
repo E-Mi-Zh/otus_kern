@@ -1,0 +1,2542 @@
+# To display the perf.data header info, please use --header/--header-only options.
+#
+#
+# Total Lost Samples: 0
+#
+# Samples: 35  of event 'cycles'
+# Event count (approx.): 6569182
+#
+# Children      Self  Command  Shared Object         Symbol                            
+# ........  ........  .......  ....................  ..................................
+#
+    86.00%     0.00%  sleep    [kernel.vmlinux]      [k] entry_SYSCALL_64_after_hwframe
+            |
+            ---entry_SYSCALL_64_after_hwframe
+               do_syscall_64
+               |          
+               |--25.82%--__x64_sys_execve
+               |          do_execveat_common.isra.0
+               |          bprm_execve
+               |          load_elf_binary
+               |          |          
+               |          |--15.39%--elf_map
+               |          |          |          
+               |          |          |--12.29%--vm_mmap_pgoff
+               |          |          |          do_mmap
+               |          |          |          |          
+               |          |          |           --8.61%--mmap_region
+               |          |          |                     |          
+               |          |          |                     |--4.44%--perf_event_mmap
+               |          |          |                     |          perf_iterate_sb
+               |          |          |                     |          perf_iterate_ctx
+               |          |          |                     |          perf_event_mmap_output
+               |          |          |                     |          perf_output_copy
+               |          |          |                     |          __output_copy
+               |          |          |                     |          memcpy
+               |          |          |                     |          kasan_check_range
+               |          |          |                     |          
+               |          |          |                      --4.17%--mas_store_prealloc
+               |          |          |                                mas_wr_modify
+               |          |          |                                mas_wr_node_store
+               |          |          |                                call_rcu
+               |          |          |                                __kasan_record_aux_stack
+               |          |          |                                kasan_save_stack
+               |          |          |                                stack_trace_save
+               |          |          |                                arch_stack_walk
+               |          |          |                                unwind_next_frame
+               |          |          |                                __orc_find
+               |          |          |          
+               |          |           --3.09%--__vm_munmap
+               |          |                     do_mas_munmap
+               |          |                     do_mas_align_munmap
+               |          |                     __split_vma
+               |          |                     __vma_adjust
+               |          |                     mas_preallocate
+               |          |                     mas_alloc_nodes
+               |          |                     kmem_cache_alloc
+               |          |                     __kasan_slab_alloc
+               |          |                     kasan_set_track
+               |          |                     kasan_save_stack
+               |          |                     __stack_depot_save
+               |          |                     filter_irq_stacks
+               |          |          
+               |          |--6.06%--setup_arg_pages
+               |          |          |          
+               |          |          |--3.66%--shift_arg_pages
+               |          |          |          __vma_adjust
+               |          |          |          |          
+               |          |          |          |--2.67%--mas_preallocate
+               |          |          |          |          mas_alloc_nodes
+               |          |          |          |          |          
+               |          |          |          |          |--1.72%--kmem_cache_alloc
+               |          |          |          |          |          __kasan_slab_alloc
+               |          |          |          |          |          kasan_set_track
+               |          |          |          |          |          kasan_save_stack
+               |          |          |          |          |          stack_trace_save
+               |          |          |          |          |          arch_stack_walk
+               |          |          |          |          |          unwind_next_frame
+               |          |          |          |          |          
+               |          |          |          |           --0.95%--kmem_cache_alloc_bulk
+               |          |          |          |          
+               |          |          |           --0.97%--mas_store_prealloc
+               |          |          |                     mas_wr_store_entry.isra.0
+               |          |          |                     mas_wr_walk
+               |          |          |          
+               |          |           --2.40%--expand_downwards
+               |          |                     mas_store_prealloc
+               |          |                     mas_destroy
+               |          |                     kmem_cache_free
+               |          |                     __kasan_slab_free
+               |          |                     kasan_save_free_info
+               |          |                     kasan_set_track
+               |          |                     kasan_save_stack
+               |          |                     stack_trace_save
+               |          |                     arch_stack_walk
+               |          |                     unwind_next_frame
+               |          |                     stack_access_ok
+               |          |          
+               |           --4.37%--map_vdso
+               |                     __install_special_mapping
+               |                     insert_vm_struct
+               |                     vma_link
+               |                     mas_preallocate
+               |                     mas_alloc_nodes
+               |                     kmem_cache_alloc_bulk
+               |          
+               |--22.83%--ksys_mmap_pgoff
+               |          vm_mmap_pgoff
+               |          do_mmap
+               |          mmap_region
+               |          |          
+               |          |--8.78%--do_mas_munmap
+               |          |          do_mas_align_munmap
+               |          |          __split_vma
+               |          |          __vma_adjust
+               |          |          mas_store_prealloc
+               |          |          mas_wr_modify
+               |          |          mas_wr_node_store
+               |          |          mas_pop_node
+               |          |          __memset
+               |          |          
+               |          |--7.63%--mas_preallocate
+               |          |          mas_alloc_nodes
+               |          |          kmem_cache_alloc_bulk
+               |          |          __kasan_slab_alloc
+               |          |          kasan_set_track
+               |          |          kasan_save_stack
+               |          |          stack_trace_save
+               |          |          arch_stack_walk
+               |          |          unwind_next_frame
+               |          |          
+               |           --6.43%--mas_store_prealloc
+               |                     mas_wr_modify
+               |                     mas_wr_node_store
+               |                     call_rcu
+               |                     __kasan_record_aux_stack
+               |                     kasan_save_stack
+               |                     stack_trace_save
+               |                     arch_stack_walk
+               |                     unwind_next_frame
+               |          
+               |--10.94%--__x64_sys_openat
+               |          do_sys_openat2
+               |          do_filp_open
+               |          path_openat
+               |          do_dentry_open
+               |          ext4_file_open
+               |          
+               |--10.58%--__x64_sys_exit_group
+               |          do_group_exit
+               |          do_exit
+               |          __mmput
+               |          exit_mmap
+               |          unmap_vmas
+               |          unmap_page_range
+               |          _compound_head
+               |          
+               |--10.30%--__x64_sys_mprotect
+               |          do_mprotect_pkey
+               |          mprotect_fixup
+               |          __split_vma
+               |          __vma_adjust
+               |          mas_store_prealloc
+               |          mas_destroy
+               |          kmem_cache_free
+               |          __kasan_slab_free
+               |          kasan_save_free_info
+               |          kasan_set_track
+               |          kasan_save_stack
+               |          stack_trace_save
+               |          arch_stack_walk
+               |          __unwind_start
+               |          
+                --5.53%--do_faccessat
+
+    86.00%     0.00%  sleep    [kernel.vmlinux]      [k] do_syscall_64
+            |
+            ---do_syscall_64
+               |          
+               |--25.82%--__x64_sys_execve
+               |          do_execveat_common.isra.0
+               |          bprm_execve
+               |          load_elf_binary
+               |          |          
+               |          |--15.39%--elf_map
+               |          |          |          
+               |          |          |--12.29%--vm_mmap_pgoff
+               |          |          |          do_mmap
+               |          |          |          |          
+               |          |          |           --8.61%--mmap_region
+               |          |          |                     |          
+               |          |          |                     |--4.44%--perf_event_mmap
+               |          |          |                     |          perf_iterate_sb
+               |          |          |                     |          perf_iterate_ctx
+               |          |          |                     |          perf_event_mmap_output
+               |          |          |                     |          perf_output_copy
+               |          |          |                     |          __output_copy
+               |          |          |                     |          memcpy
+               |          |          |                     |          kasan_check_range
+               |          |          |                     |          
+               |          |          |                      --4.17%--mas_store_prealloc
+               |          |          |                                mas_wr_modify
+               |          |          |                                mas_wr_node_store
+               |          |          |                                call_rcu
+               |          |          |                                __kasan_record_aux_stack
+               |          |          |                                kasan_save_stack
+               |          |          |                                stack_trace_save
+               |          |          |                                arch_stack_walk
+               |          |          |                                unwind_next_frame
+               |          |          |                                __orc_find
+               |          |          |          
+               |          |           --3.09%--__vm_munmap
+               |          |                     do_mas_munmap
+               |          |                     do_mas_align_munmap
+               |          |                     __split_vma
+               |          |                     __vma_adjust
+               |          |                     mas_preallocate
+               |          |                     mas_alloc_nodes
+               |          |                     kmem_cache_alloc
+               |          |                     __kasan_slab_alloc
+               |          |                     kasan_set_track
+               |          |                     kasan_save_stack
+               |          |                     __stack_depot_save
+               |          |                     filter_irq_stacks
+               |          |          
+               |          |--6.06%--setup_arg_pages
+               |          |          |          
+               |          |          |--3.66%--shift_arg_pages
+               |          |          |          __vma_adjust
+               |          |          |          |          
+               |          |          |          |--2.67%--mas_preallocate
+               |          |          |          |          mas_alloc_nodes
+               |          |          |          |          |          
+               |          |          |          |          |--1.72%--kmem_cache_alloc
+               |          |          |          |          |          __kasan_slab_alloc
+               |          |          |          |          |          kasan_set_track
+               |          |          |          |          |          kasan_save_stack
+               |          |          |          |          |          stack_trace_save
+               |          |          |          |          |          arch_stack_walk
+               |          |          |          |          |          unwind_next_frame
+               |          |          |          |          |          
+               |          |          |          |           --0.95%--kmem_cache_alloc_bulk
+               |          |          |          |          
+               |          |          |           --0.97%--mas_store_prealloc
+               |          |          |                     mas_wr_store_entry.isra.0
+               |          |          |                     mas_wr_walk
+               |          |          |          
+               |          |           --2.40%--expand_downwards
+               |          |                     mas_store_prealloc
+               |          |                     mas_destroy
+               |          |                     kmem_cache_free
+               |          |                     __kasan_slab_free
+               |          |                     kasan_save_free_info
+               |          |                     kasan_set_track
+               |          |                     kasan_save_stack
+               |          |                     stack_trace_save
+               |          |                     arch_stack_walk
+               |          |                     unwind_next_frame
+               |          |                     stack_access_ok
+               |          |          
+               |           --4.37%--map_vdso
+               |                     __install_special_mapping
+               |                     insert_vm_struct
+               |                     vma_link
+               |                     mas_preallocate
+               |                     mas_alloc_nodes
+               |                     kmem_cache_alloc_bulk
+               |          
+               |--22.83%--ksys_mmap_pgoff
+               |          vm_mmap_pgoff
+               |          do_mmap
+               |          mmap_region
+               |          |          
+               |          |--8.78%--do_mas_munmap
+               |          |          do_mas_align_munmap
+               |          |          __split_vma
+               |          |          __vma_adjust
+               |          |          mas_store_prealloc
+               |          |          mas_wr_modify
+               |          |          mas_wr_node_store
+               |          |          mas_pop_node
+               |          |          __memset
+               |          |          
+               |          |--7.63%--mas_preallocate
+               |          |          mas_alloc_nodes
+               |          |          kmem_cache_alloc_bulk
+               |          |          __kasan_slab_alloc
+               |          |          kasan_set_track
+               |          |          kasan_save_stack
+               |          |          stack_trace_save
+               |          |          arch_stack_walk
+               |          |          unwind_next_frame
+               |          |          
+               |           --6.43%--mas_store_prealloc
+               |                     mas_wr_modify
+               |                     mas_wr_node_store
+               |                     call_rcu
+               |                     __kasan_record_aux_stack
+               |                     kasan_save_stack
+               |                     stack_trace_save
+               |                     arch_stack_walk
+               |                     unwind_next_frame
+               |          
+               |--10.94%--__x64_sys_openat
+               |          do_sys_openat2
+               |          do_filp_open
+               |          path_openat
+               |          do_dentry_open
+               |          ext4_file_open
+               |          
+               |--10.58%--__x64_sys_exit_group
+               |          do_group_exit
+               |          do_exit
+               |          __mmput
+               |          exit_mmap
+               |          unmap_vmas
+               |          unmap_page_range
+               |          _compound_head
+               |          
+               |--10.30%--__x64_sys_mprotect
+               |          do_mprotect_pkey
+               |          mprotect_fixup
+               |          __split_vma
+               |          __vma_adjust
+               |          mas_store_prealloc
+               |          mas_destroy
+               |          kmem_cache_free
+               |          __kasan_slab_free
+               |          kasan_save_free_info
+               |          kasan_set_track
+               |          kasan_save_stack
+               |          stack_trace_save
+               |          arch_stack_walk
+               |          __unwind_start
+               |          
+                --5.53%--do_faccessat
+
+    36.23%     0.00%  sleep    [kernel.vmlinux]      [k] kasan_save_stack
+            |
+            ---kasan_save_stack
+               |          
+               |--33.13%--stack_trace_save
+               |          arch_stack_walk
+               |          |          
+               |          |--22.84%--unwind_next_frame
+               |          |          |          
+               |          |          |--4.17%--__orc_find
+               |          |          |          
+               |          |           --2.89%--stack_access_ok
+               |          |          
+               |           --10.30%--__unwind_start
+               |          
+                --3.09%--__stack_depot_save
+                          filter_irq_stacks
+
+    35.13%     0.00%  sleep    [kernel.vmlinux]      [k] vm_mmap_pgoff
+            |
+            ---vm_mmap_pgoff
+               do_mmap
+               |          
+                --31.44%--mmap_region
+                          |          
+                          |--10.60%--mas_store_prealloc
+                          |          mas_wr_modify
+                          |          mas_wr_node_store
+                          |          call_rcu
+                          |          __kasan_record_aux_stack
+                          |          kasan_save_stack
+                          |          stack_trace_save
+                          |          arch_stack_walk
+                          |          unwind_next_frame
+                          |          |          
+                          |           --4.17%--__orc_find
+                          |          
+                          |--8.78%--do_mas_munmap
+                          |          do_mas_align_munmap
+                          |          __split_vma
+                          |          __vma_adjust
+                          |          mas_store_prealloc
+                          |          mas_wr_modify
+                          |          mas_wr_node_store
+                          |          mas_pop_node
+                          |          __memset
+                          |          
+                          |--7.63%--mas_preallocate
+                          |          mas_alloc_nodes
+                          |          kmem_cache_alloc_bulk
+                          |          __kasan_slab_alloc
+                          |          kasan_set_track
+                          |          kasan_save_stack
+                          |          stack_trace_save
+                          |          arch_stack_walk
+                          |          unwind_next_frame
+                          |          
+                           --4.44%--perf_event_mmap
+                                     perf_iterate_sb
+                                     perf_iterate_ctx
+                                     perf_event_mmap_output
+                                     perf_output_copy
+                                     __output_copy
+                                     memcpy
+                                     kasan_check_range
+
+    35.13%     3.68%  sleep    [kernel.vmlinux]      [k] do_mmap
+            |          
+            |--31.44%--do_mmap
+            |          mmap_region
+            |          |          
+            |          |--10.60%--mas_store_prealloc
+            |          |          mas_wr_modify
+            |          |          mas_wr_node_store
+            |          |          call_rcu
+            |          |          __kasan_record_aux_stack
+            |          |          kasan_save_stack
+            |          |          stack_trace_save
+            |          |          arch_stack_walk
+            |          |          unwind_next_frame
+            |          |          |          
+            |          |           --4.17%--__orc_find
+            |          |          
+            |          |--8.78%--do_mas_munmap
+            |          |          do_mas_align_munmap
+            |          |          __split_vma
+            |          |          __vma_adjust
+            |          |          mas_store_prealloc
+            |          |          mas_wr_modify
+            |          |          mas_wr_node_store
+            |          |          mas_pop_node
+            |          |          __memset
+            |          |          
+            |          |--7.63%--mas_preallocate
+            |          |          mas_alloc_nodes
+            |          |          kmem_cache_alloc_bulk
+            |          |          __kasan_slab_alloc
+            |          |          kasan_set_track
+            |          |          kasan_save_stack
+            |          |          stack_trace_save
+            |          |          arch_stack_walk
+            |          |          unwind_next_frame
+            |          |          
+            |           --4.44%--perf_event_mmap
+            |                     perf_iterate_sb
+            |                     perf_iterate_ctx
+            |                     perf_event_mmap_output
+            |                     perf_output_copy
+            |                     __output_copy
+            |                     memcpy
+            |                     kasan_check_range
+            |          
+             --3.68%--0x7ff7f32f2ad7
+                       entry_SYSCALL_64_after_hwframe
+                       do_syscall_64
+                       __x64_sys_execve
+                       do_execveat_common.isra.0
+                       bprm_execve
+                       load_elf_binary
+                       elf_map
+                       vm_mmap_pgoff
+                       do_mmap
+
+    33.13%     0.00%  sleep    [kernel.vmlinux]      [k] stack_trace_save
+            |
+            ---stack_trace_save
+               arch_stack_walk
+               |          
+               |--22.84%--unwind_next_frame
+               |          |          
+               |          |--4.17%--__orc_find
+               |          |          
+               |           --2.89%--stack_access_ok
+               |          
+                --10.30%--__unwind_start
+
+    33.13%     0.00%  sleep    [kernel.vmlinux]      [k] arch_stack_walk
+            |
+            ---arch_stack_walk
+               |          
+               |--22.84%--unwind_next_frame
+               |          |          
+               |          |--4.17%--__orc_find
+               |          |          
+               |           --2.89%--stack_access_ok
+               |          
+                --10.30%--__unwind_start
+
+    33.04%     0.00%  sleep    [kernel.vmlinux]      [k] mas_store_prealloc
+            |
+            ---mas_store_prealloc
+               |          
+               |--19.38%--mas_wr_modify
+               |          mas_wr_node_store
+               |          |          
+               |          |--10.60%--call_rcu
+               |          |          __kasan_record_aux_stack
+               |          |          kasan_save_stack
+               |          |          stack_trace_save
+               |          |          arch_stack_walk
+               |          |          unwind_next_frame
+               |          |          |          
+               |          |           --4.17%--__orc_find
+               |          |          
+               |           --8.78%--mas_pop_node
+               |                     __memset
+               |          
+               |--12.69%--mas_destroy
+               |          kmem_cache_free
+               |          __kasan_slab_free
+               |          kasan_save_free_info
+               |          kasan_set_track
+               |          kasan_save_stack
+               |          stack_trace_save
+               |          arch_stack_walk
+               |          |          
+               |          |--10.30%--__unwind_start
+               |          |          
+               |           --2.40%--unwind_next_frame
+               |                     stack_access_ok
+               |          
+                --0.97%--mas_wr_store_entry.isra.0
+                          mas_wr_walk
+
+    32.42%     0.00%  sleep    [unknown]             [k] 0000000000000000
+            |
+            ---0
+               0x7f33692938a8
+               _dl_map_object
+               |          
+               |--22.83%--mmap64
+               |          entry_SYSCALL_64_after_hwframe
+               |          do_syscall_64
+               |          ksys_mmap_pgoff
+               |          vm_mmap_pgoff
+               |          do_mmap
+               |          mmap_region
+               |          |          
+               |          |--8.78%--do_mas_munmap
+               |          |          do_mas_align_munmap
+               |          |          __split_vma
+               |          |          __vma_adjust
+               |          |          mas_store_prealloc
+               |          |          mas_wr_modify
+               |          |          mas_wr_node_store
+               |          |          mas_pop_node
+               |          |          __memset
+               |          |          
+               |          |--7.63%--mas_preallocate
+               |          |          mas_alloc_nodes
+               |          |          kmem_cache_alloc_bulk
+               |          |          __kasan_slab_alloc
+               |          |          kasan_set_track
+               |          |          kasan_save_stack
+               |          |          stack_trace_save
+               |          |          arch_stack_walk
+               |          |          unwind_next_frame
+               |          |          
+               |           --6.43%--mas_store_prealloc
+               |                     mas_wr_modify
+               |                     mas_wr_node_store
+               |                     call_rcu
+               |                     __kasan_record_aux_stack
+               |                     kasan_save_stack
+               |                     stack_trace_save
+               |                     arch_stack_walk
+               |                     unwind_next_frame
+               |          
+                --9.59%--_dl_map_object_from_fd
+                          asm_exc_page_fault
+                          exc_page_fault
+                          do_user_addr_fault
+                          handle_mm_fault
+                          __handle_mm_fault
+                          do_fault
+                          filemap_map_pages
+                          __kasan_check_read
+
+    32.42%     0.00%  sleep    [unknown]             [k] 0x00007f33692938a8
+            |
+            ---0x7f33692938a8
+               _dl_map_object
+               |          
+               |--22.83%--mmap64
+               |          entry_SYSCALL_64_after_hwframe
+               |          do_syscall_64
+               |          ksys_mmap_pgoff
+               |          vm_mmap_pgoff
+               |          do_mmap
+               |          mmap_region
+               |          |          
+               |          |--8.78%--do_mas_munmap
+               |          |          do_mas_align_munmap
+               |          |          __split_vma
+               |          |          __vma_adjust
+               |          |          mas_store_prealloc
+               |          |          mas_wr_modify
+               |          |          mas_wr_node_store
+               |          |          mas_pop_node
+               |          |          __memset
+               |          |          
+               |          |--7.63%--mas_preallocate
+               |          |          mas_alloc_nodes
+               |          |          kmem_cache_alloc_bulk
+               |          |          __kasan_slab_alloc
+               |          |          kasan_set_track
+               |          |          kasan_save_stack
+               |          |          stack_trace_save
+               |          |          arch_stack_walk
+               |          |          unwind_next_frame
+               |          |          
+               |           --6.43%--mas_store_prealloc
+               |                     mas_wr_modify
+               |                     mas_wr_node_store
+               |                     call_rcu
+               |                     __kasan_record_aux_stack
+               |                     kasan_save_stack
+               |                     stack_trace_save
+               |                     arch_stack_walk
+               |                     unwind_next_frame
+               |          
+                --9.59%--_dl_map_object_from_fd
+                          asm_exc_page_fault
+                          exc_page_fault
+                          do_user_addr_fault
+                          handle_mm_fault
+                          __handle_mm_fault
+                          do_fault
+                          filemap_map_pages
+                          __kasan_check_read
+
+    32.42%     0.00%  sleep    ld-linux-x86-64.so.2  [.] _dl_map_object
+            |
+            ---_dl_map_object
+               |          
+               |--22.83%--mmap64
+               |          entry_SYSCALL_64_after_hwframe
+               |          do_syscall_64
+               |          ksys_mmap_pgoff
+               |          vm_mmap_pgoff
+               |          do_mmap
+               |          mmap_region
+               |          |          
+               |          |--8.78%--do_mas_munmap
+               |          |          do_mas_align_munmap
+               |          |          __split_vma
+               |          |          __vma_adjust
+               |          |          mas_store_prealloc
+               |          |          mas_wr_modify
+               |          |          mas_wr_node_store
+               |          |          mas_pop_node
+               |          |          __memset
+               |          |          
+               |          |--7.63%--mas_preallocate
+               |          |          mas_alloc_nodes
+               |          |          kmem_cache_alloc_bulk
+               |          |          __kasan_slab_alloc
+               |          |          kasan_set_track
+               |          |          kasan_save_stack
+               |          |          stack_trace_save
+               |          |          arch_stack_walk
+               |          |          unwind_next_frame
+               |          |          
+               |           --6.43%--mas_store_prealloc
+               |                     mas_wr_modify
+               |                     mas_wr_node_store
+               |                     call_rcu
+               |                     __kasan_record_aux_stack
+               |                     kasan_save_stack
+               |                     stack_trace_save
+               |                     arch_stack_walk
+               |                     unwind_next_frame
+               |          
+                --9.59%--_dl_map_object_from_fd
+                          asm_exc_page_fault
+                          exc_page_fault
+                          do_user_addr_fault
+                          handle_mm_fault
+                          __handle_mm_fault
+                          do_fault
+                          filemap_map_pages
+                          __kasan_check_read
+
+    31.44%     0.00%  sleep    [kernel.vmlinux]      [k] mmap_region
+            |
+            ---mmap_region
+               |          
+               |--10.60%--mas_store_prealloc
+               |          mas_wr_modify
+               |          mas_wr_node_store
+               |          call_rcu
+               |          __kasan_record_aux_stack
+               |          kasan_save_stack
+               |          stack_trace_save
+               |          arch_stack_walk
+               |          unwind_next_frame
+               |          |          
+               |           --4.17%--__orc_find
+               |          
+               |--8.78%--do_mas_munmap
+               |          do_mas_align_munmap
+               |          __split_vma
+               |          __vma_adjust
+               |          mas_store_prealloc
+               |          mas_wr_modify
+               |          mas_wr_node_store
+               |          mas_pop_node
+               |          __memset
+               |          
+               |--7.63%--mas_preallocate
+               |          mas_alloc_nodes
+               |          kmem_cache_alloc_bulk
+               |          __kasan_slab_alloc
+               |          kasan_set_track
+               |          kasan_save_stack
+               |          stack_trace_save
+               |          arch_stack_walk
+               |          unwind_next_frame
+               |          
+                --4.44%--perf_event_mmap
+                          perf_iterate_sb
+                          perf_iterate_ctx
+                          perf_event_mmap_output
+                          perf_output_copy
+                          __output_copy
+                          memcpy
+                          kasan_check_range
+
+    25.83%     0.02%  sleep    [kernel.vmlinux]      [k] __vma_adjust
+            |          
+             --25.81%--__vma_adjust
+                       |          
+                       |--20.04%--mas_store_prealloc
+                       |          |          
+                       |          |--10.30%--mas_destroy
+                       |          |          kmem_cache_free
+                       |          |          __kasan_slab_free
+                       |          |          kasan_save_free_info
+                       |          |          kasan_set_track
+                       |          |          kasan_save_stack
+                       |          |          stack_trace_save
+                       |          |          arch_stack_walk
+                       |          |          __unwind_start
+                       |          |          
+                       |          |--8.78%--mas_wr_modify
+                       |          |          mas_wr_node_store
+                       |          |          mas_pop_node
+                       |          |          __memset
+                       |          |          
+                       |           --0.97%--mas_wr_store_entry.isra.0
+                       |                     mas_wr_walk
+                       |          
+                        --5.77%--mas_preallocate
+                                  mas_alloc_nodes
+                                  |          
+                                  |--4.81%--kmem_cache_alloc
+                                  |          __kasan_slab_alloc
+                                  |          kasan_set_track
+                                  |          kasan_save_stack
+                                  |          |          
+                                  |          |--3.09%--__stack_depot_save
+                                  |          |          filter_irq_stacks
+                                  |          |          
+                                  |           --1.72%--stack_trace_save
+                                  |                     arch_stack_walk
+                                  |                     unwind_next_frame
+                                  |          
+                                   --0.95%--kmem_cache_alloc_bulk
+
+    25.82%     0.00%  sleep    [unknown]             [k] 0x00007ff7f32f2ad7
+            |
+            ---0x7ff7f32f2ad7
+               entry_SYSCALL_64_after_hwframe
+               do_syscall_64
+               __x64_sys_execve
+               do_execveat_common.isra.0
+               bprm_execve
+               load_elf_binary
+               |          
+               |--15.39%--elf_map
+               |          |          
+               |          |--12.29%--vm_mmap_pgoff
+               |          |          do_mmap
+               |          |          |          
+               |          |           --8.61%--mmap_region
+               |          |                     |          
+               |          |                     |--4.44%--perf_event_mmap
+               |          |                     |          perf_iterate_sb
+               |          |                     |          perf_iterate_ctx
+               |          |                     |          perf_event_mmap_output
+               |          |                     |          perf_output_copy
+               |          |                     |          __output_copy
+               |          |                     |          memcpy
+               |          |                     |          kasan_check_range
+               |          |                     |          
+               |          |                      --4.17%--mas_store_prealloc
+               |          |                                mas_wr_modify
+               |          |                                mas_wr_node_store
+               |          |                                call_rcu
+               |          |                                __kasan_record_aux_stack
+               |          |                                kasan_save_stack
+               |          |                                stack_trace_save
+               |          |                                arch_stack_walk
+               |          |                                unwind_next_frame
+               |          |                                __orc_find
+               |          |          
+               |           --3.09%--__vm_munmap
+               |                     do_mas_munmap
+               |                     do_mas_align_munmap
+               |                     __split_vma
+               |                     __vma_adjust
+               |                     mas_preallocate
+               |                     mas_alloc_nodes
+               |                     kmem_cache_alloc
+               |                     __kasan_slab_alloc
+               |                     kasan_set_track
+               |                     kasan_save_stack
+               |                     __stack_depot_save
+               |                     filter_irq_stacks
+               |          
+               |--6.06%--setup_arg_pages
+               |          |          
+               |          |--3.66%--shift_arg_pages
+               |          |          __vma_adjust
+               |          |          |          
+               |          |          |--2.67%--mas_preallocate
+               |          |          |          mas_alloc_nodes
+               |          |          |          |          
+               |          |          |          |--1.72%--kmem_cache_alloc
+               |          |          |          |          __kasan_slab_alloc
+               |          |          |          |          kasan_set_track
+               |          |          |          |          kasan_save_stack
+               |          |          |          |          stack_trace_save
+               |          |          |          |          arch_stack_walk
+               |          |          |          |          unwind_next_frame
+               |          |          |          |          
+               |          |          |           --0.95%--kmem_cache_alloc_bulk
+               |          |          |          
+               |          |           --0.97%--mas_store_prealloc
+               |          |                     mas_wr_store_entry.isra.0
+               |          |                     mas_wr_walk
+               |          |          
+               |           --2.40%--expand_downwards
+               |                     mas_store_prealloc
+               |                     mas_destroy
+               |                     kmem_cache_free
+               |                     __kasan_slab_free
+               |                     kasan_save_free_info
+               |                     kasan_set_track
+               |                     kasan_save_stack
+               |                     stack_trace_save
+               |                     arch_stack_walk
+               |                     unwind_next_frame
+               |                     stack_access_ok
+               |          
+                --4.37%--map_vdso
+                          __install_special_mapping
+                          insert_vm_struct
+                          vma_link
+                          mas_preallocate
+                          mas_alloc_nodes
+                          kmem_cache_alloc_bulk
+
+    25.82%     0.00%  sleep    [kernel.vmlinux]      [k] __x64_sys_execve
+            |
+            ---__x64_sys_execve
+               do_execveat_common.isra.0
+               bprm_execve
+               load_elf_binary
+               |          
+               |--15.39%--elf_map
+               |          |          
+               |          |--12.29%--vm_mmap_pgoff
+               |          |          do_mmap
+               |          |          |          
+               |          |           --8.61%--mmap_region
+               |          |                     |          
+               |          |                     |--4.44%--perf_event_mmap
+               |          |                     |          perf_iterate_sb
+               |          |                     |          perf_iterate_ctx
+               |          |                     |          perf_event_mmap_output
+               |          |                     |          perf_output_copy
+               |          |                     |          __output_copy
+               |          |                     |          memcpy
+               |          |                     |          kasan_check_range
+               |          |                     |          
+               |          |                      --4.17%--mas_store_prealloc
+               |          |                                mas_wr_modify
+               |          |                                mas_wr_node_store
+               |          |                                call_rcu
+               |          |                                __kasan_record_aux_stack
+               |          |                                kasan_save_stack
+               |          |                                stack_trace_save
+               |          |                                arch_stack_walk
+               |          |                                unwind_next_frame
+               |          |                                __orc_find
+               |          |          
+               |           --3.09%--__vm_munmap
+               |                     do_mas_munmap
+               |                     do_mas_align_munmap
+               |                     __split_vma
+               |                     __vma_adjust
+               |                     mas_preallocate
+               |                     mas_alloc_nodes
+               |                     kmem_cache_alloc
+               |                     __kasan_slab_alloc
+               |                     kasan_set_track
+               |                     kasan_save_stack
+               |                     __stack_depot_save
+               |                     filter_irq_stacks
+               |          
+               |--6.06%--setup_arg_pages
+               |          |          
+               |          |--3.66%--shift_arg_pages
+               |          |          __vma_adjust
+               |          |          |          
+               |          |          |--2.67%--mas_preallocate
+               |          |          |          mas_alloc_nodes
+               |          |          |          |          
+               |          |          |          |--1.72%--kmem_cache_alloc
+               |          |          |          |          __kasan_slab_alloc
+               |          |          |          |          kasan_set_track
+               |          |          |          |          kasan_save_stack
+               |          |          |          |          stack_trace_save
+               |          |          |          |          arch_stack_walk
+               |          |          |          |          unwind_next_frame
+               |          |          |          |          
+               |          |          |           --0.95%--kmem_cache_alloc_bulk
+               |          |          |          
+               |          |           --0.97%--mas_store_prealloc
+               |          |                     mas_wr_store_entry.isra.0
+               |          |                     mas_wr_walk
+               |          |          
+               |           --2.40%--expand_downwards
+               |                     mas_store_prealloc
+               |                     mas_destroy
+               |                     kmem_cache_free
+               |                     __kasan_slab_free
+               |                     kasan_save_free_info
+               |                     kasan_set_track
+               |                     kasan_save_stack
+               |                     stack_trace_save
+               |                     arch_stack_walk
+               |                     unwind_next_frame
+               |                     stack_access_ok
+               |          
+                --4.37%--map_vdso
+                          __install_special_mapping
+                          insert_vm_struct
+                          vma_link
+                          mas_preallocate
+                          mas_alloc_nodes
+                          kmem_cache_alloc_bulk
+
+    25.82%     0.00%  sleep    [kernel.vmlinux]      [k] do_execveat_common.isra.0
+            |
+            ---do_execveat_common.isra.0
+               bprm_execve
+               load_elf_binary
+               |          
+               |--15.39%--elf_map
+               |          |          
+               |          |--12.29%--vm_mmap_pgoff
+               |          |          do_mmap
+               |          |          |          
+               |          |           --8.61%--mmap_region
+               |          |                     |          
+               |          |                     |--4.44%--perf_event_mmap
+               |          |                     |          perf_iterate_sb
+               |          |                     |          perf_iterate_ctx
+               |          |                     |          perf_event_mmap_output
+               |          |                     |          perf_output_copy
+               |          |                     |          __output_copy
+               |          |                     |          memcpy
+               |          |                     |          kasan_check_range
+               |          |                     |          
+               |          |                      --4.17%--mas_store_prealloc
+               |          |                                mas_wr_modify
+               |          |                                mas_wr_node_store
+               |          |                                call_rcu
+               |          |                                __kasan_record_aux_stack
+               |          |                                kasan_save_stack
+               |          |                                stack_trace_save
+               |          |                                arch_stack_walk
+               |          |                                unwind_next_frame
+               |          |                                __orc_find
+               |          |          
+               |           --3.09%--__vm_munmap
+               |                     do_mas_munmap
+               |                     do_mas_align_munmap
+               |                     __split_vma
+               |                     __vma_adjust
+               |                     mas_preallocate
+               |                     mas_alloc_nodes
+               |                     kmem_cache_alloc
+               |                     __kasan_slab_alloc
+               |                     kasan_set_track
+               |                     kasan_save_stack
+               |                     __stack_depot_save
+               |                     filter_irq_stacks
+               |          
+               |--6.06%--setup_arg_pages
+               |          |          
+               |          |--3.66%--shift_arg_pages
+               |          |          __vma_adjust
+               |          |          |          
+               |          |          |--2.67%--mas_preallocate
+               |          |          |          mas_alloc_nodes
+               |          |          |          |          
+               |          |          |          |--1.72%--kmem_cache_alloc
+               |          |          |          |          __kasan_slab_alloc
+               |          |          |          |          kasan_set_track
+               |          |          |          |          kasan_save_stack
+               |          |          |          |          stack_trace_save
+               |          |          |          |          arch_stack_walk
+               |          |          |          |          unwind_next_frame
+               |          |          |          |          
+               |          |          |           --0.95%--kmem_cache_alloc_bulk
+               |          |          |          
+               |          |           --0.97%--mas_store_prealloc
+               |          |                     mas_wr_store_entry.isra.0
+               |          |                     mas_wr_walk
+               |          |          
+               |           --2.40%--expand_downwards
+               |                     mas_store_prealloc
+               |                     mas_destroy
+               |                     kmem_cache_free
+               |                     __kasan_slab_free
+               |                     kasan_save_free_info
+               |                     kasan_set_track
+               |                     kasan_save_stack
+               |                     stack_trace_save
+               |                     arch_stack_walk
+               |                     unwind_next_frame
+               |                     stack_access_ok
+               |          
+                --4.37%--map_vdso
+                          __install_special_mapping
+                          insert_vm_struct
+                          vma_link
+                          mas_preallocate
+                          mas_alloc_nodes
+                          kmem_cache_alloc_bulk
+
+    25.82%     0.00%  sleep    [kernel.vmlinux]      [k] bprm_execve
+            |
+            ---bprm_execve
+               load_elf_binary
+               |          
+               |--15.39%--elf_map
+               |          |          
+               |          |--12.29%--vm_mmap_pgoff
+               |          |          do_mmap
+               |          |          |          
+               |          |           --8.61%--mmap_region
+               |          |                     |          
+               |          |                     |--4.44%--perf_event_mmap
+               |          |                     |          perf_iterate_sb
+               |          |                     |          perf_iterate_ctx
+               |          |                     |          perf_event_mmap_output
+               |          |                     |          perf_output_copy
+               |          |                     |          __output_copy
+               |          |                     |          memcpy
+               |          |                     |          kasan_check_range
+               |          |                     |          
+               |          |                      --4.17%--mas_store_prealloc
+               |          |                                mas_wr_modify
+               |          |                                mas_wr_node_store
+               |          |                                call_rcu
+               |          |                                __kasan_record_aux_stack
+               |          |                                kasan_save_stack
+               |          |                                stack_trace_save
+               |          |                                arch_stack_walk
+               |          |                                unwind_next_frame
+               |          |                                __orc_find
+               |          |          
+               |           --3.09%--__vm_munmap
+               |                     do_mas_munmap
+               |                     do_mas_align_munmap
+               |                     __split_vma
+               |                     __vma_adjust
+               |                     mas_preallocate
+               |                     mas_alloc_nodes
+               |                     kmem_cache_alloc
+               |                     __kasan_slab_alloc
+               |                     kasan_set_track
+               |                     kasan_save_stack
+               |                     __stack_depot_save
+               |                     filter_irq_stacks
+               |          
+               |--6.06%--setup_arg_pages
+               |          |          
+               |          |--3.66%--shift_arg_pages
+               |          |          __vma_adjust
+               |          |          |          
+               |          |          |--2.67%--mas_preallocate
+               |          |          |          mas_alloc_nodes
+               |          |          |          |          
+               |          |          |          |--1.72%--kmem_cache_alloc
+               |          |          |          |          __kasan_slab_alloc
+               |          |          |          |          kasan_set_track
+               |          |          |          |          kasan_save_stack
+               |          |          |          |          stack_trace_save
+               |          |          |          |          arch_stack_walk
+               |          |          |          |          unwind_next_frame
+               |          |          |          |          
+               |          |          |           --0.95%--kmem_cache_alloc_bulk
+               |          |          |          
+               |          |           --0.97%--mas_store_prealloc
+               |          |                     mas_wr_store_entry.isra.0
+               |          |                     mas_wr_walk
+               |          |          
+               |           --2.40%--expand_downwards
+               |                     mas_store_prealloc
+               |                     mas_destroy
+               |                     kmem_cache_free
+               |                     __kasan_slab_free
+               |                     kasan_save_free_info
+               |                     kasan_set_track
+               |                     kasan_save_stack
+               |                     stack_trace_save
+               |                     arch_stack_walk
+               |                     unwind_next_frame
+               |                     stack_access_ok
+               |          
+                --4.37%--map_vdso
+                          __install_special_mapping
+                          insert_vm_struct
+                          vma_link
+                          mas_preallocate
+                          mas_alloc_nodes
+                          kmem_cache_alloc_bulk
+
+    25.82%     0.00%  sleep    [kernel.vmlinux]      [k] load_elf_binary
+            |
+            ---load_elf_binary
+               |          
+               |--15.39%--elf_map
+               |          |          
+               |          |--12.29%--vm_mmap_pgoff
+               |          |          do_mmap
+               |          |          |          
+               |          |           --8.61%--mmap_region
+               |          |                     |          
+               |          |                     |--4.44%--perf_event_mmap
+               |          |                     |          perf_iterate_sb
+               |          |                     |          perf_iterate_ctx
+               |          |                     |          perf_event_mmap_output
+               |          |                     |          perf_output_copy
+               |          |                     |          __output_copy
+               |          |                     |          memcpy
+               |          |                     |          kasan_check_range
+               |          |                     |          
+               |          |                      --4.17%--mas_store_prealloc
+               |          |                                mas_wr_modify
+               |          |                                mas_wr_node_store
+               |          |                                call_rcu
+               |          |                                __kasan_record_aux_stack
+               |          |                                kasan_save_stack
+               |          |                                stack_trace_save
+               |          |                                arch_stack_walk
+               |          |                                unwind_next_frame
+               |          |                                __orc_find
+               |          |          
+               |           --3.09%--__vm_munmap
+               |                     do_mas_munmap
+               |                     do_mas_align_munmap
+               |                     __split_vma
+               |                     __vma_adjust
+               |                     mas_preallocate
+               |                     mas_alloc_nodes
+               |                     kmem_cache_alloc
+               |                     __kasan_slab_alloc
+               |                     kasan_set_track
+               |                     kasan_save_stack
+               |                     __stack_depot_save
+               |                     filter_irq_stacks
+               |          
+               |--6.06%--setup_arg_pages
+               |          |          
+               |          |--3.66%--shift_arg_pages
+               |          |          __vma_adjust
+               |          |          |          
+               |          |          |--2.67%--mas_preallocate
+               |          |          |          mas_alloc_nodes
+               |          |          |          |          
+               |          |          |          |--1.72%--kmem_cache_alloc
+               |          |          |          |          __kasan_slab_alloc
+               |          |          |          |          kasan_set_track
+               |          |          |          |          kasan_save_stack
+               |          |          |          |          stack_trace_save
+               |          |          |          |          arch_stack_walk
+               |          |          |          |          unwind_next_frame
+               |          |          |          |          
+               |          |          |           --0.95%--kmem_cache_alloc_bulk
+               |          |          |          
+               |          |           --0.97%--mas_store_prealloc
+               |          |                     mas_wr_store_entry.isra.0
+               |          |                     mas_wr_walk
+               |          |          
+               |           --2.40%--expand_downwards
+               |                     mas_store_prealloc
+               |                     mas_destroy
+               |                     kmem_cache_free
+               |                     __kasan_slab_free
+               |                     kasan_save_free_info
+               |                     kasan_set_track
+               |                     kasan_save_stack
+               |                     stack_trace_save
+               |                     arch_stack_walk
+               |                     unwind_next_frame
+               |                     stack_access_ok
+               |          
+                --4.37%--map_vdso
+                          __install_special_mapping
+                          insert_vm_struct
+                          vma_link
+                          mas_preallocate
+                          mas_alloc_nodes
+                          kmem_cache_alloc_bulk
+
+    25.63%     0.00%  sleep    [kernel.vmlinux]      [k] kasan_set_track
+            |
+            ---kasan_set_track
+               kasan_save_stack
+               |          
+               |--22.53%--stack_trace_save
+               |          arch_stack_walk
+               |          |          
+               |          |--12.24%--unwind_next_frame
+               |          |          |          
+               |          |           --2.89%--stack_access_ok
+               |          |          
+               |           --10.30%--__unwind_start
+               |          
+                --3.09%--__stack_depot_save
+                          filter_irq_stacks
+
+    22.84%    15.71%  sleep    [kernel.vmlinux]      [k] unwind_next_frame
+            |          
+            |--14.05%--0
+            |          0x7f33692938a8
+            |          _dl_map_object
+            |          mmap64
+            |          entry_SYSCALL_64_after_hwframe
+            |          do_syscall_64
+            |          ksys_mmap_pgoff
+            |          vm_mmap_pgoff
+            |          do_mmap
+            |          mmap_region
+            |          |          
+            |          |--7.63%--mas_preallocate
+            |          |          mas_alloc_nodes
+            |          |          kmem_cache_alloc_bulk
+            |          |          __kasan_slab_alloc
+            |          |          kasan_set_track
+            |          |          kasan_save_stack
+            |          |          stack_trace_save
+            |          |          arch_stack_walk
+            |          |          unwind_next_frame
+            |          |          
+            |           --6.43%--mas_store_prealloc
+            |                     mas_wr_modify
+            |                     mas_wr_node_store
+            |                     call_rcu
+            |                     __kasan_record_aux_stack
+            |                     kasan_save_stack
+            |                     stack_trace_save
+            |                     arch_stack_walk
+            |                     unwind_next_frame
+            |          
+            |--7.12%--unwind_next_frame
+            |          |          
+            |          |--4.17%--__orc_find
+            |          |          
+            |           --2.89%--stack_access_ok
+            |          
+             --1.66%--0x7ff7f32f2ad7
+                       entry_SYSCALL_64_after_hwframe
+                       do_syscall_64
+                       __x64_sys_execve
+                       do_execveat_common.isra.0
+                       bprm_execve
+                       load_elf_binary
+                       setup_arg_pages
+                       shift_arg_pages
+                       __vma_adjust
+                       mas_preallocate
+                       mas_alloc_nodes
+                       kmem_cache_alloc
+                       __kasan_slab_alloc
+                       kasan_set_track
+                       kasan_save_stack
+                       stack_trace_save
+                       arch_stack_walk
+                       unwind_next_frame
+
+    22.83%     0.00%  sleep    ld-linux-x86-64.so.2  [.] mmap64
+            |
+            ---mmap64
+               entry_SYSCALL_64_after_hwframe
+               do_syscall_64
+               ksys_mmap_pgoff
+               vm_mmap_pgoff
+               do_mmap
+               mmap_region
+               |          
+               |--8.78%--do_mas_munmap
+               |          do_mas_align_munmap
+               |          __split_vma
+               |          __vma_adjust
+               |          mas_store_prealloc
+               |          mas_wr_modify
+               |          mas_wr_node_store
+               |          mas_pop_node
+               |          __memset
+               |          
+               |--7.63%--mas_preallocate
+               |          mas_alloc_nodes
+               |          kmem_cache_alloc_bulk
+               |          __kasan_slab_alloc
+               |          kasan_set_track
+               |          kasan_save_stack
+               |          stack_trace_save
+               |          arch_stack_walk
+               |          unwind_next_frame
+               |          
+                --6.43%--mas_store_prealloc
+                          mas_wr_modify
+                          mas_wr_node_store
+                          call_rcu
+                          __kasan_record_aux_stack
+                          kasan_save_stack
+                          stack_trace_save
+                          arch_stack_walk
+                          unwind_next_frame
+
+    22.83%     0.00%  sleep    [kernel.vmlinux]      [k] ksys_mmap_pgoff
+            |
+            ---ksys_mmap_pgoff
+               vm_mmap_pgoff
+               do_mmap
+               mmap_region
+               |          
+               |--8.78%--do_mas_munmap
+               |          do_mas_align_munmap
+               |          __split_vma
+               |          __vma_adjust
+               |          mas_store_prealloc
+               |          mas_wr_modify
+               |          mas_wr_node_store
+               |          mas_pop_node
+               |          __memset
+               |          
+               |--7.63%--mas_preallocate
+               |          mas_alloc_nodes
+               |          kmem_cache_alloc_bulk
+               |          __kasan_slab_alloc
+               |          kasan_set_track
+               |          kasan_save_stack
+               |          stack_trace_save
+               |          arch_stack_walk
+               |          unwind_next_frame
+               |          
+                --6.43%--mas_store_prealloc
+                          mas_wr_modify
+                          mas_wr_node_store
+                          call_rcu
+                          __kasan_record_aux_stack
+                          kasan_save_stack
+                          stack_trace_save
+                          arch_stack_walk
+                          unwind_next_frame
+
+    22.17%     0.00%  sleep    [kernel.vmlinux]      [k] __split_vma
+            |
+            ---__split_vma
+               __vma_adjust
+               |          
+               |--19.07%--mas_store_prealloc
+               |          |          
+               |          |--10.30%--mas_destroy
+               |          |          kmem_cache_free
+               |          |          __kasan_slab_free
+               |          |          kasan_save_free_info
+               |          |          kasan_set_track
+               |          |          kasan_save_stack
+               |          |          stack_trace_save
+               |          |          arch_stack_walk
+               |          |          __unwind_start
+               |          |          
+               |           --8.78%--mas_wr_modify
+               |                     mas_wr_node_store
+               |                     mas_pop_node
+               |                     __memset
+               |          
+                --3.09%--mas_preallocate
+                          mas_alloc_nodes
+                          kmem_cache_alloc
+                          __kasan_slab_alloc
+                          kasan_set_track
+                          kasan_save_stack
+                          __stack_depot_save
+                          filter_irq_stacks
+
+    19.38%     0.00%  sleep    [kernel.vmlinux]      [k] mas_wr_modify
+            |
+            ---mas_wr_modify
+               mas_wr_node_store
+               |          
+               |--10.60%--call_rcu
+               |          __kasan_record_aux_stack
+               |          kasan_save_stack
+               |          stack_trace_save
+               |          arch_stack_walk
+               |          unwind_next_frame
+               |          |          
+               |           --4.17%--__orc_find
+               |          
+                --8.78%--mas_pop_node
+                          __memset
+
+    19.38%     0.00%  sleep    [kernel.vmlinux]      [k] mas_wr_node_store
+            |
+            ---mas_wr_node_store
+               |          
+               |--10.60%--call_rcu
+               |          __kasan_record_aux_stack
+               |          kasan_save_stack
+               |          stack_trace_save
+               |          arch_stack_walk
+               |          unwind_next_frame
+               |          |          
+               |           --4.17%--__orc_find
+               |          
+                --8.78%--mas_pop_node
+                          __memset
+
+    17.76%     0.00%  sleep    [kernel.vmlinux]      [k] mas_preallocate
+            |
+            ---mas_preallocate
+               mas_alloc_nodes
+               |          
+               |--12.95%--kmem_cache_alloc_bulk
+               |          |          
+               |           --8.12%--__kasan_slab_alloc
+               |                     kasan_set_track
+               |                     kasan_save_stack
+               |                     stack_trace_save
+               |                     arch_stack_walk
+               |                     unwind_next_frame
+               |          
+                --4.81%--kmem_cache_alloc
+                          __kasan_slab_alloc
+                          kasan_set_track
+                          kasan_save_stack
+                          |          
+                          |--3.09%--__stack_depot_save
+                          |          filter_irq_stacks
+                          |          
+                           --1.72%--stack_trace_save
+                                     arch_stack_walk
+                                     unwind_next_frame
+
+    17.76%     0.00%  sleep    [kernel.vmlinux]      [k] mas_alloc_nodes
+            |
+            ---mas_alloc_nodes
+               |          
+               |--12.95%--kmem_cache_alloc_bulk
+               |          |          
+               |           --8.12%--__kasan_slab_alloc
+               |                     kasan_set_track
+               |                     kasan_save_stack
+               |                     stack_trace_save
+               |                     arch_stack_walk
+               |                     unwind_next_frame
+               |          
+                --4.81%--kmem_cache_alloc
+                          __kasan_slab_alloc
+                          kasan_set_track
+                          kasan_save_stack
+                          |          
+                          |--3.09%--__stack_depot_save
+                          |          filter_irq_stacks
+                          |          
+                           --1.72%--stack_trace_save
+                                     arch_stack_walk
+                                     unwind_next_frame
+
+    15.83%     0.00%  sleep    ld-linux-x86-64.so.2  [.] _dl_start_user
+            |
+            ---_dl_start_user
+               _dl_sysdep_start
+               |          
+               |--10.30%--dl_main
+               |          mprotect
+               |          entry_SYSCALL_64_after_hwframe
+               |          do_syscall_64
+               |          __x64_sys_mprotect
+               |          do_mprotect_pkey
+               |          mprotect_fixup
+               |          __split_vma
+               |          __vma_adjust
+               |          mas_store_prealloc
+               |          mas_destroy
+               |          kmem_cache_free
+               |          __kasan_slab_free
+               |          kasan_save_free_info
+               |          kasan_set_track
+               |          kasan_save_stack
+               |          stack_trace_save
+               |          arch_stack_walk
+               |          __unwind_start
+               |          
+                --5.53%--access
+                          entry_SYSCALL_64_after_hwframe
+                          do_syscall_64
+                          do_faccessat
+
+    15.83%     0.00%  sleep    ld-linux-x86-64.so.2  [.] _dl_sysdep_start
+            |
+            ---_dl_sysdep_start
+               |          
+               |--10.30%--dl_main
+               |          mprotect
+               |          entry_SYSCALL_64_after_hwframe
+               |          do_syscall_64
+               |          __x64_sys_mprotect
+               |          do_mprotect_pkey
+               |          mprotect_fixup
+               |          __split_vma
+               |          __vma_adjust
+               |          mas_store_prealloc
+               |          mas_destroy
+               |          kmem_cache_free
+               |          __kasan_slab_free
+               |          kasan_save_free_info
+               |          kasan_set_track
+               |          kasan_save_stack
+               |          stack_trace_save
+               |          arch_stack_walk
+               |          __unwind_start
+               |          
+                --5.53%--access
+                          entry_SYSCALL_64_after_hwframe
+                          do_syscall_64
+                          do_faccessat
+
+    15.39%     0.00%  sleep    [kernel.vmlinux]      [k] elf_map
+            |
+            ---elf_map
+               |          
+               |--12.29%--vm_mmap_pgoff
+               |          do_mmap
+               |          |          
+               |           --8.61%--mmap_region
+               |                     |          
+               |                     |--4.44%--perf_event_mmap
+               |                     |          perf_iterate_sb
+               |                     |          perf_iterate_ctx
+               |                     |          perf_event_mmap_output
+               |                     |          perf_output_copy
+               |                     |          __output_copy
+               |                     |          memcpy
+               |                     |          kasan_check_range
+               |                     |          
+               |                      --4.17%--mas_store_prealloc
+               |                                mas_wr_modify
+               |                                mas_wr_node_store
+               |                                call_rcu
+               |                                __kasan_record_aux_stack
+               |                                kasan_save_stack
+               |                                stack_trace_save
+               |                                arch_stack_walk
+               |                                unwind_next_frame
+               |                                __orc_find
+               |          
+                --3.09%--__vm_munmap
+                          do_mas_munmap
+                          do_mas_align_munmap
+                          __split_vma
+                          __vma_adjust
+                          mas_preallocate
+                          mas_alloc_nodes
+                          kmem_cache_alloc
+                          __kasan_slab_alloc
+                          kasan_set_track
+                          kasan_save_stack
+                          __stack_depot_save
+                          filter_irq_stacks
+
+    14.00%     0.00%  sleep    [kernel.vmlinux]      [k] asm_exc_page_fault
+            |
+            ---asm_exc_page_fault
+               exc_page_fault
+               do_user_addr_fault
+               handle_mm_fault
+               __handle_mm_fault
+               do_fault
+               filemap_map_pages
+               |          
+               |--9.59%--__kasan_check_read
+               |          
+                --4.41%--xas_find
+                          xas_load
+
+    14.00%     0.00%  sleep    [kernel.vmlinux]      [k] exc_page_fault
+            |
+            ---exc_page_fault
+               do_user_addr_fault
+               handle_mm_fault
+               __handle_mm_fault
+               do_fault
+               filemap_map_pages
+               |          
+               |--9.59%--__kasan_check_read
+               |          
+                --4.41%--xas_find
+                          xas_load
+
+    14.00%     0.00%  sleep    [kernel.vmlinux]      [k] do_user_addr_fault
+            |
+            ---do_user_addr_fault
+               handle_mm_fault
+               __handle_mm_fault
+               do_fault
+               filemap_map_pages
+               |          
+               |--9.59%--__kasan_check_read
+               |          
+                --4.41%--xas_find
+                          xas_load
+
+    14.00%     0.00%  sleep    [kernel.vmlinux]      [k] handle_mm_fault
+            |
+            ---handle_mm_fault
+               __handle_mm_fault
+               do_fault
+               filemap_map_pages
+               |          
+               |--9.59%--__kasan_check_read
+               |          
+                --4.41%--xas_find
+                          xas_load
+
+    14.00%     0.00%  sleep    [kernel.vmlinux]      [k] __handle_mm_fault
+            |
+            ---__handle_mm_fault
+               do_fault
+               filemap_map_pages
+               |          
+               |--9.59%--__kasan_check_read
+               |          
+                --4.41%--xas_find
+                          xas_load
+
+    14.00%     0.00%  sleep    [kernel.vmlinux]      [k] do_fault
+            |
+            ---do_fault
+               filemap_map_pages
+               |          
+               |--9.59%--__kasan_check_read
+               |          
+                --4.41%--xas_find
+                          xas_load
+
+    14.00%     0.00%  sleep    [kernel.vmlinux]      [k] filemap_map_pages
+            |
+            ---filemap_map_pages
+               |          
+               |--9.59%--__kasan_check_read
+               |          
+                --4.41%--xas_find
+                          xas_load
+
+    12.95%     4.83%  sleep    [kernel.vmlinux]      [k] kmem_cache_alloc_bulk
+            |          
+            |--8.12%--kmem_cache_alloc_bulk
+            |          __kasan_slab_alloc
+            |          kasan_set_track
+            |          kasan_save_stack
+            |          stack_trace_save
+            |          arch_stack_walk
+            |          unwind_next_frame
+            |          
+             --4.83%--0x7ff7f32f2ad7
+                       entry_SYSCALL_64_after_hwframe
+                       do_syscall_64
+                       __x64_sys_execve
+                       do_execveat_common.isra.0
+                       bprm_execve
+                       load_elf_binary
+                       |          
+                        --4.37%--map_vdso
+                                  __install_special_mapping
+                                  insert_vm_struct
+                                  vma_link
+                                  mas_preallocate
+                                  mas_alloc_nodes
+                                  kmem_cache_alloc_bulk
+
+    12.93%     0.00%  sleep    [kernel.vmlinux]      [k] __kasan_slab_alloc
+            |
+            ---__kasan_slab_alloc
+               kasan_set_track
+               kasan_save_stack
+               |          
+               |--9.84%--stack_trace_save
+               |          arch_stack_walk
+               |          unwind_next_frame
+               |          
+                --3.09%--__stack_depot_save
+                          filter_irq_stacks
+
+    12.69%     0.00%  sleep    [kernel.vmlinux]      [k] mas_destroy
+            |
+            ---mas_destroy
+               kmem_cache_free
+               __kasan_slab_free
+               kasan_save_free_info
+               kasan_set_track
+               kasan_save_stack
+               stack_trace_save
+               arch_stack_walk
+               |          
+               |--10.30%--__unwind_start
+               |          
+                --2.40%--unwind_next_frame
+                          stack_access_ok
+
+    12.69%     0.00%  sleep    [kernel.vmlinux]      [k] kmem_cache_free
+            |
+            ---kmem_cache_free
+               __kasan_slab_free
+               kasan_save_free_info
+               kasan_set_track
+               kasan_save_stack
+               stack_trace_save
+               arch_stack_walk
+               |          
+               |--10.30%--__unwind_start
+               |          
+                --2.40%--unwind_next_frame
+                          stack_access_ok
+
+    12.69%     0.00%  sleep    [kernel.vmlinux]      [k] __kasan_slab_free
+            |
+            ---__kasan_slab_free
+               kasan_save_free_info
+               kasan_set_track
+               kasan_save_stack
+               stack_trace_save
+               arch_stack_walk
+               |          
+               |--10.30%--__unwind_start
+               |          
+                --2.40%--unwind_next_frame
+                          stack_access_ok
+
+    12.69%     0.00%  sleep    [kernel.vmlinux]      [k] kasan_save_free_info
+            |
+            ---kasan_save_free_info
+               kasan_set_track
+               kasan_save_stack
+               stack_trace_save
+               arch_stack_walk
+               |          
+               |--10.30%--__unwind_start
+               |          
+                --2.40%--unwind_next_frame
+                          stack_access_ok
+
+    11.87%     0.00%  sleep    [kernel.vmlinux]      [k] do_mas_munmap
+            |
+            ---do_mas_munmap
+               do_mas_align_munmap
+               __split_vma
+               __vma_adjust
+               |          
+               |--8.78%--mas_store_prealloc
+               |          mas_wr_modify
+               |          mas_wr_node_store
+               |          mas_pop_node
+               |          __memset
+               |          
+                --3.09%--mas_preallocate
+                          mas_alloc_nodes
+                          kmem_cache_alloc
+                          __kasan_slab_alloc
+                          kasan_set_track
+                          kasan_save_stack
+                          __stack_depot_save
+                          filter_irq_stacks
+
+    11.87%     0.00%  sleep    [kernel.vmlinux]      [k] do_mas_align_munmap
+            |
+            ---do_mas_align_munmap
+               __split_vma
+               __vma_adjust
+               |          
+               |--8.78%--mas_store_prealloc
+               |          mas_wr_modify
+               |          mas_wr_node_store
+               |          mas_pop_node
+               |          __memset
+               |          
+                --3.09%--mas_preallocate
+                          mas_alloc_nodes
+                          kmem_cache_alloc
+                          __kasan_slab_alloc
+                          kasan_set_track
+                          kasan_save_stack
+                          __stack_depot_save
+                          filter_irq_stacks
+
+    10.94%    10.94%  sleep    [ext4]                [k] ext4_file_open
+            |
+            ---setlocale
+               _nl_find_locale
+               __open64_nocancel
+               entry_SYSCALL_64_after_hwframe
+               do_syscall_64
+               __x64_sys_openat
+               do_sys_openat2
+               do_filp_open
+               path_openat
+               do_dentry_open
+               ext4_file_open
+
+    10.94%     0.00%  sleep    libc.so.6             [.] setlocale
+            |
+            ---setlocale
+               _nl_find_locale
+               __open64_nocancel
+               entry_SYSCALL_64_after_hwframe
+               do_syscall_64
+               __x64_sys_openat
+               do_sys_openat2
+               do_filp_open
+               path_openat
+               do_dentry_open
+               ext4_file_open
+
+    10.94%     0.00%  sleep    libc.so.6             [.] _nl_find_locale
+            |
+            ---_nl_find_locale
+               __open64_nocancel
+               entry_SYSCALL_64_after_hwframe
+               do_syscall_64
+               __x64_sys_openat
+               do_sys_openat2
+               do_filp_open
+               path_openat
+               do_dentry_open
+               ext4_file_open
+
+    10.94%     0.00%  sleep    libc.so.6             [.] __open64_nocancel
+            |
+            ---__open64_nocancel
+               entry_SYSCALL_64_after_hwframe
+               do_syscall_64
+               __x64_sys_openat
+               do_sys_openat2
+               do_filp_open
+               path_openat
+               do_dentry_open
+               ext4_file_open
+
+    10.94%     0.00%  sleep    [kernel.vmlinux]      [k] __x64_sys_openat
+            |
+            ---__x64_sys_openat
+               do_sys_openat2
+               do_filp_open
+               path_openat
+               do_dentry_open
+               ext4_file_open
+
+    10.94%     0.00%  sleep    [kernel.vmlinux]      [k] do_sys_openat2
+            |
+            ---do_sys_openat2
+               do_filp_open
+               path_openat
+               do_dentry_open
+               ext4_file_open
+
+    10.94%     0.00%  sleep    [kernel.vmlinux]      [k] do_filp_open
+            |
+            ---do_filp_open
+               path_openat
+               do_dentry_open
+               ext4_file_open
+
+    10.94%     0.00%  sleep    [kernel.vmlinux]      [k] path_openat
+            |
+            ---path_openat
+               do_dentry_open
+               ext4_file_open
+
+    10.94%     0.00%  sleep    [kernel.vmlinux]      [k] do_dentry_open
+            |
+            ---do_dentry_open
+               ext4_file_open
+
+    10.60%     0.00%  sleep    [kernel.vmlinux]      [k] call_rcu
+            |
+            ---call_rcu
+               __kasan_record_aux_stack
+               kasan_save_stack
+               stack_trace_save
+               arch_stack_walk
+               unwind_next_frame
+               |          
+                --4.17%--__orc_find
+
+    10.60%     0.00%  sleep    [kernel.vmlinux]      [k] __kasan_record_aux_stack
+            |
+            ---__kasan_record_aux_stack
+               kasan_save_stack
+               stack_trace_save
+               arch_stack_walk
+               unwind_next_frame
+               |          
+                --4.17%--__orc_find
+
+    10.58%    10.58%  sleep    [kernel.vmlinux]      [k] _compound_head
+            |
+            ---entry_SYSCALL_64_after_hwframe
+               do_syscall_64
+               __x64_sys_exit_group
+               do_group_exit
+               do_exit
+               __mmput
+               exit_mmap
+               unmap_vmas
+               unmap_page_range
+               _compound_head
+
+    10.58%     0.00%  sleep    [kernel.vmlinux]      [k] __x64_sys_exit_group
+            |
+            ---__x64_sys_exit_group
+               do_group_exit
+               do_exit
+               __mmput
+               exit_mmap
+               unmap_vmas
+               unmap_page_range
+               _compound_head
+
+    10.58%     0.00%  sleep    [kernel.vmlinux]      [k] do_group_exit
+            |
+            ---do_group_exit
+               do_exit
+               __mmput
+               exit_mmap
+               unmap_vmas
+               unmap_page_range
+               _compound_head
+
+    10.58%     0.00%  sleep    [kernel.vmlinux]      [k] do_exit
+            |
+            ---do_exit
+               __mmput
+               exit_mmap
+               unmap_vmas
+               unmap_page_range
+               _compound_head
+
+    10.58%     0.00%  sleep    [kernel.vmlinux]      [k] __mmput
+            |
+            ---__mmput
+               exit_mmap
+               unmap_vmas
+               unmap_page_range
+               _compound_head
+
+    10.58%     0.00%  sleep    [kernel.vmlinux]      [k] exit_mmap
+            |
+            ---exit_mmap
+               unmap_vmas
+               unmap_page_range
+               _compound_head
+
+    10.58%     0.00%  sleep    [kernel.vmlinux]      [k] unmap_vmas
+            |
+            ---unmap_vmas
+               unmap_page_range
+               _compound_head
+
+    10.58%     0.00%  sleep    [kernel.vmlinux]      [k] unmap_page_range
+            |
+            ---unmap_page_range
+               _compound_head
+
+    10.30%     0.00%  sleep    [kernel.vmlinux]      [k] mprotect_fixup
+            |
+            ---mprotect_fixup
+               |          
+                --10.30%--__split_vma
+                          __vma_adjust
+                          mas_store_prealloc
+                          mas_destroy
+                          kmem_cache_free
+                          __kasan_slab_free
+                          kasan_save_free_info
+                          kasan_set_track
+                          kasan_save_stack
+                          stack_trace_save
+                          arch_stack_walk
+                          __unwind_start
+
+    10.30%    10.30%  sleep    [kernel.vmlinux]      [k] __unwind_start
+            |
+            ---_dl_start_user
+               _dl_sysdep_start
+               dl_main
+               mprotect
+               entry_SYSCALL_64_after_hwframe
+               do_syscall_64
+               __x64_sys_mprotect
+               do_mprotect_pkey
+               mprotect_fixup
+               __split_vma
+               __vma_adjust
+               mas_store_prealloc
+               mas_destroy
+               kmem_cache_free
+               __kasan_slab_free
+               kasan_save_free_info
+               kasan_set_track
+               kasan_save_stack
+               stack_trace_save
+               arch_stack_walk
+               __unwind_start
+
+    10.30%     0.00%  sleep    ld-linux-x86-64.so.2  [.] dl_main
+            |
+            ---dl_main
+               mprotect
+               entry_SYSCALL_64_after_hwframe
+               do_syscall_64
+               __x64_sys_mprotect
+               do_mprotect_pkey
+               mprotect_fixup
+               __split_vma
+               __vma_adjust
+               mas_store_prealloc
+               mas_destroy
+               kmem_cache_free
+               __kasan_slab_free
+               kasan_save_free_info
+               kasan_set_track
+               kasan_save_stack
+               stack_trace_save
+               arch_stack_walk
+               __unwind_start
+
+    10.30%     0.00%  sleep    ld-linux-x86-64.so.2  [.] mprotect
+            |
+            ---mprotect
+               entry_SYSCALL_64_after_hwframe
+               do_syscall_64
+               __x64_sys_mprotect
+               do_mprotect_pkey
+               mprotect_fixup
+               __split_vma
+               __vma_adjust
+               mas_store_prealloc
+               mas_destroy
+               kmem_cache_free
+               __kasan_slab_free
+               kasan_save_free_info
+               kasan_set_track
+               kasan_save_stack
+               stack_trace_save
+               arch_stack_walk
+               __unwind_start
+
+    10.30%     0.00%  sleep    [kernel.vmlinux]      [k] __x64_sys_mprotect
+            |
+            ---__x64_sys_mprotect
+               do_mprotect_pkey
+               mprotect_fixup
+               __split_vma
+               __vma_adjust
+               mas_store_prealloc
+               mas_destroy
+               kmem_cache_free
+               __kasan_slab_free
+               kasan_save_free_info
+               kasan_set_track
+               kasan_save_stack
+               stack_trace_save
+               arch_stack_walk
+               __unwind_start
+
+    10.30%     0.00%  sleep    [kernel.vmlinux]      [k] do_mprotect_pkey
+            |
+            ---do_mprotect_pkey
+               mprotect_fixup
+               __split_vma
+               __vma_adjust
+               mas_store_prealloc
+               mas_destroy
+               kmem_cache_free
+               __kasan_slab_free
+               kasan_save_free_info
+               kasan_set_track
+               kasan_save_stack
+               stack_trace_save
+               arch_stack_walk
+               __unwind_start
+
+     9.59%     9.59%  sleep    [kernel.vmlinux]      [k] __kasan_check_read
+            |
+            ---0
+               0x7f33692938a8
+               _dl_map_object
+               _dl_map_object_from_fd
+               asm_exc_page_fault
+               exc_page_fault
+               do_user_addr_fault
+               handle_mm_fault
+               __handle_mm_fault
+               do_fault
+               filemap_map_pages
+               __kasan_check_read
+
+     9.59%     0.00%  sleep    ld-linux-x86-64.so.2  [.] _dl_map_object_from_fd
+            |
+            ---_dl_map_object_from_fd
+               asm_exc_page_fault
+               exc_page_fault
+               do_user_addr_fault
+               handle_mm_fault
+               __handle_mm_fault
+               do_fault
+               filemap_map_pages
+               __kasan_check_read
+
+     8.78%     8.78%  sleep    [kernel.vmlinux]      [k] __memset
+            |
+            ---0
+               0x7f33692938a8
+               _dl_map_object
+               mmap64
+               entry_SYSCALL_64_after_hwframe
+               do_syscall_64
+               ksys_mmap_pgoff
+               vm_mmap_pgoff
+               do_mmap
+               mmap_region
+               do_mas_munmap
+               do_mas_align_munmap
+               __split_vma
+               __vma_adjust
+               mas_store_prealloc
+               mas_wr_modify
+               mas_wr_node_store
+               mas_pop_node
+               __memset
+
+     8.78%     0.00%  sleep    [kernel.vmlinux]      [k] mas_pop_node
+            |
+            ---mas_pop_node
+               __memset
+
+     6.06%     0.00%  sleep    [kernel.vmlinux]      [k] setup_arg_pages
+            |
+            ---setup_arg_pages
+               |          
+               |--3.66%--shift_arg_pages
+               |          __vma_adjust
+               |          |          
+               |          |--2.67%--mas_preallocate
+               |          |          mas_alloc_nodes
+               |          |          |          
+               |          |          |--1.72%--kmem_cache_alloc
+               |          |          |          __kasan_slab_alloc
+               |          |          |          kasan_set_track
+               |          |          |          kasan_save_stack
+               |          |          |          stack_trace_save
+               |          |          |          arch_stack_walk
+               |          |          |          unwind_next_frame
+               |          |          |          
+               |          |           --0.95%--kmem_cache_alloc_bulk
+               |          |          
+               |           --0.97%--mas_store_prealloc
+               |                     mas_wr_store_entry.isra.0
+               |                     mas_wr_walk
+               |          
+                --2.40%--expand_downwards
+                          mas_store_prealloc
+                          mas_destroy
+                          kmem_cache_free
+                          __kasan_slab_free
+                          kasan_save_free_info
+                          kasan_set_track
+                          kasan_save_stack
+                          stack_trace_save
+                          arch_stack_walk
+                          unwind_next_frame
+                          stack_access_ok
+
+     5.53%     5.53%  sleep    [kernel.vmlinux]      [k] do_faccessat
+            |
+            ---_dl_start_user
+               _dl_sysdep_start
+               access
+               entry_SYSCALL_64_after_hwframe
+               do_syscall_64
+               do_faccessat
+
+     5.53%     0.00%  sleep    ld-linux-x86-64.so.2  [.] access
+            |
+            ---access
+               entry_SYSCALL_64_after_hwframe
+               do_syscall_64
+               do_faccessat
+
+     4.81%     0.00%  sleep    [kernel.vmlinux]      [k] kmem_cache_alloc
+            |
+            ---kmem_cache_alloc
+               __kasan_slab_alloc
+               kasan_set_track
+               kasan_save_stack
+               |          
+               |--3.09%--__stack_depot_save
+               |          filter_irq_stacks
+               |          
+                --1.72%--stack_trace_save
+                          arch_stack_walk
+                          unwind_next_frame
+
+     4.44%     0.00%  sleep    [kernel.vmlinux]      [k] perf_iterate_sb
+            |          
+             --4.44%--perf_iterate_sb
+                       perf_iterate_ctx
+                       perf_event_mmap_output
+                       perf_output_copy
+                       __output_copy
+                       memcpy
+                       kasan_check_range
+
+     4.44%     0.00%  sleep    [kernel.vmlinux]      [k] perf_event_mmap
+            |
+            ---perf_event_mmap
+               perf_iterate_sb
+               |          
+                --4.44%--perf_iterate_ctx
+                          perf_event_mmap_output
+                          perf_output_copy
+                          __output_copy
+                          memcpy
+                          kasan_check_range
+
+     4.44%     4.44%  sleep    [kernel.vmlinux]      [k] kasan_check_range
+            |
+            ---0x7ff7f32f2ad7
+               entry_SYSCALL_64_after_hwframe
+               do_syscall_64
+               __x64_sys_execve
+               do_execveat_common.isra.0
+               bprm_execve
+               load_elf_binary
+               elf_map
+               vm_mmap_pgoff
+               do_mmap
+               mmap_region
+               perf_event_mmap
+               perf_iterate_sb
+               perf_iterate_ctx
+               perf_event_mmap_output
+               perf_output_copy
+               __output_copy
+               memcpy
+               kasan_check_range
+
+     4.44%     0.00%  sleep    [kernel.vmlinux]      [k] perf_iterate_ctx
+            |
+            ---perf_iterate_ctx
+               perf_event_mmap_output
+               perf_output_copy
+               __output_copy
+               memcpy
+               kasan_check_range
+
+     4.44%     0.00%  sleep    [kernel.vmlinux]      [k] perf_event_mmap_output
+            |
+            ---perf_event_mmap_output
+               perf_output_copy
+               __output_copy
+               memcpy
+               kasan_check_range
+
+     4.44%     0.00%  sleep    [kernel.vmlinux]      [k] perf_output_copy
+            |
+            ---perf_output_copy
+               __output_copy
+               memcpy
+               kasan_check_range
+
+     4.44%     0.00%  sleep    [kernel.vmlinux]      [k] __output_copy
+            |
+            ---__output_copy
+               memcpy
+               kasan_check_range
+
+     4.44%     0.00%  sleep    [kernel.vmlinux]      [k] memcpy
+            |
+            ---memcpy
+               kasan_check_range
+
+     4.41%     4.41%  sleep    [kernel.vmlinux]      [k] xas_load
+            |
+            ---_start
+               asm_exc_page_fault
+               exc_page_fault
+               do_user_addr_fault
+               handle_mm_fault
+               __handle_mm_fault
+               do_fault
+               filemap_map_pages
+               xas_find
+               xas_load
+
+     4.41%     0.00%  sleep    ld-linux-x86-64.so.2  [.] _start
+            |
+            ---_start
+               asm_exc_page_fault
+               exc_page_fault
+               do_user_addr_fault
+               handle_mm_fault
+               __handle_mm_fault
+               do_fault
+               filemap_map_pages
+               xas_find
+               xas_load
+
+     4.41%     0.00%  sleep    [kernel.vmlinux]      [k] xas_find
+            |
+            ---xas_find
+               xas_load
+
+     4.37%     0.00%  sleep    [kernel.vmlinux]      [k] map_vdso
+            |
+            ---map_vdso
+               __install_special_mapping
+               insert_vm_struct
+               vma_link
+               mas_preallocate
+               mas_alloc_nodes
+               kmem_cache_alloc_bulk
+
+     4.37%     0.00%  sleep    [kernel.vmlinux]      [k] __install_special_mapping
+            |
+            ---__install_special_mapping
+               insert_vm_struct
+               vma_link
+               mas_preallocate
+               mas_alloc_nodes
+               kmem_cache_alloc_bulk
+
+     4.37%     0.00%  sleep    [kernel.vmlinux]      [k] insert_vm_struct
+            |
+            ---insert_vm_struct
+               vma_link
+               mas_preallocate
+               mas_alloc_nodes
+               kmem_cache_alloc_bulk
+
+     4.37%     0.00%  sleep    [kernel.vmlinux]      [k] vma_link
+            |
+            ---vma_link
+               mas_preallocate
+               mas_alloc_nodes
+               kmem_cache_alloc_bulk
+
+     4.17%     4.17%  sleep    [kernel.vmlinux]      [k] __orc_find
+            |
+            ---0x7ff7f32f2ad7
+               entry_SYSCALL_64_after_hwframe
+               do_syscall_64
+               __x64_sys_execve
+               do_execveat_common.isra.0
+               bprm_execve
+               load_elf_binary
+               elf_map
+               vm_mmap_pgoff
+               do_mmap
+               mmap_region
+               mas_store_prealloc
+               mas_wr_modify
+               mas_wr_node_store
+               call_rcu
+               __kasan_record_aux_stack
+               kasan_save_stack
+               stack_trace_save
+               arch_stack_walk
+               unwind_next_frame
+               __orc_find
+
+     3.66%     0.00%  sleep    [kernel.vmlinux]      [k] shift_arg_pages
+            |
+            ---shift_arg_pages
+               __vma_adjust
+               |          
+               |--2.67%--mas_preallocate
+               |          mas_alloc_nodes
+               |          |          
+               |          |--1.72%--kmem_cache_alloc
+               |          |          __kasan_slab_alloc
+               |          |          kasan_set_track
+               |          |          kasan_save_stack
+               |          |          stack_trace_save
+               |          |          arch_stack_walk
+               |          |          unwind_next_frame
+               |          |          
+               |           --0.95%--kmem_cache_alloc_bulk
+               |          
+                --0.97%--mas_store_prealloc
+                          mas_wr_store_entry.isra.0
+                          mas_wr_walk
+
+     3.09%     3.09%  sleep    [kernel.vmlinux]      [k] filter_irq_stacks
+            |
+            ---0x7ff7f32f2ad7
+               entry_SYSCALL_64_after_hwframe
+               do_syscall_64
+               __x64_sys_execve
+               do_execveat_common.isra.0
+               bprm_execve
+               load_elf_binary
+               elf_map
+               __vm_munmap
+               do_mas_munmap
+               do_mas_align_munmap
+               __split_vma
+               __vma_adjust
+               mas_preallocate
+               mas_alloc_nodes
+               kmem_cache_alloc
+               __kasan_slab_alloc
+               kasan_set_track
+               kasan_save_stack
+               __stack_depot_save
+               filter_irq_stacks
+
+     3.09%     0.00%  sleep    [kernel.vmlinux]      [k] __vm_munmap
+            |
+            ---__vm_munmap
+               do_mas_munmap
+               do_mas_align_munmap
+               __split_vma
+               __vma_adjust
+               mas_preallocate
+               mas_alloc_nodes
+               kmem_cache_alloc
+               __kasan_slab_alloc
+               kasan_set_track
+               kasan_save_stack
+               __stack_depot_save
+               filter_irq_stacks
+
+     3.09%     0.00%  sleep    [kernel.vmlinux]      [k] __stack_depot_save
+            |
+            ---__stack_depot_save
+               filter_irq_stacks
+
+     2.89%     2.89%  sleep    [kernel.vmlinux]      [k] stack_access_ok
+            |
+            ---0x7ff7f32f2ad7
+               entry_SYSCALL_64_after_hwframe
+               do_syscall_64
+               __x64_sys_execve
+               do_execveat_common.isra.0
+               bprm_execve
+               load_elf_binary
+               setup_arg_pages
+               |          
+                --2.40%--expand_downwards
+                          mas_store_prealloc
+                          mas_destroy
+                          kmem_cache_free
+                          __kasan_slab_free
+                          kasan_save_free_info
+                          kasan_set_track
+                          kasan_save_stack
+                          stack_trace_save
+                          arch_stack_walk
+                          unwind_next_frame
+                          stack_access_ok
+
+     2.40%     0.00%  sleep    [kernel.vmlinux]      [k] expand_downwards
+            |
+            ---expand_downwards
+               mas_store_prealloc
+               mas_destroy
+               kmem_cache_free
+               __kasan_slab_free
+               kasan_save_free_info
+               kasan_set_track
+               kasan_save_stack
+               stack_trace_save
+               arch_stack_walk
+               unwind_next_frame
+               stack_access_ok
+
+     0.97%     0.97%  sleep    [kernel.vmlinux]      [k] mas_wr_walk
+            |
+            ---0x7ff7f32f2ad7
+               entry_SYSCALL_64_after_hwframe
+               do_syscall_64
+               __x64_sys_execve
+               do_execveat_common.isra.0
+               bprm_execve
+               load_elf_binary
+               setup_arg_pages
+               shift_arg_pages
+               __vma_adjust
+               mas_store_prealloc
+               mas_wr_store_entry.isra.0
+               mas_wr_walk
+
+     0.97%     0.00%  sleep    [kernel.vmlinux]      [k] mas_wr_store_entry.isra.0
+            |
+            ---mas_wr_store_entry.isra.0
+               mas_wr_walk
+
+     0.06%     0.06%  sleep    [kernel.vmlinux]      [k] orc_find.part.0
+     0.00%     0.00%  sleep    [kernel.vmlinux]      [k] change_protection
+     0.00%     0.00%  sleep    [kernel.vmlinux]      [k] get_random_u16
+     0.00%     0.00%  sleep    [kernel.vmlinux]      [k] arch_align_stack
+     0.00%     0.00%  perf-ex  [kernel.vmlinux]      [k] perf_event_exec
+     0.00%     0.00%  perf-ex  [unknown]             [k] 0x00007ff7f32f2ad7
+     0.00%     0.00%  perf-ex  [kernel.vmlinux]      [k] entry_SYSCALL_64_after_hwframe
+     0.00%     0.00%  perf-ex  [kernel.vmlinux]      [k] do_syscall_64
+     0.00%     0.00%  perf-ex  [kernel.vmlinux]      [k] __x64_sys_execve
+     0.00%     0.00%  perf-ex  [kernel.vmlinux]      [k] do_execveat_common.isra.0
+     0.00%     0.00%  perf-ex  [kernel.vmlinux]      [k] bprm_execve
+     0.00%     0.00%  perf-ex  [kernel.vmlinux]      [k] load_elf_binary
+     0.00%     0.00%  perf-ex  [kernel.vmlinux]      [k] begin_new_exec
+
+
+#
+# (Tip: Generate a script for your data: perf script -g <lang>)
+#

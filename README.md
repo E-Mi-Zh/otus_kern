@@ -4,3 +4,4 @@
 * [HW\_02\_hello\_world](https://github.com/E-Mi-Zh/otus_kern/tree/master/HW_02_hello_world) - Модуль
 ядра с параметрами и коллбэками
 * [HW\_03\_collection\_of\_example](https://github.com/E-Mi-Zh/otus_kern/tree/master/HW_03_collection_of_example) - Набор модулей ядра, реализующих работу с основными структурами данных.
+* [HW\_04\_kthread](https://github.com/E-Mi-Zh/otus_kern/tree/master/HW_04_kthread) - Сравнение производительности многопоточных программ в kernel space и user space.
