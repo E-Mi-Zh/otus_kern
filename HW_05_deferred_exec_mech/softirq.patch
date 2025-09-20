@@ -1,0 +1,28 @@
+--- include/linux/interrupt.h.orig	2025-09-20 05:28:12.862197315 +0300
++++ include/linux/interrupt.h	2025-09-20 05:30:27.442769044 +0300
+@@ -556,6 +556,7 @@
+ 	TASKLET_SOFTIRQ,
+ 	SCHED_SOFTIRQ,
+ 	HRTIMER_SOFTIRQ,
++	MY_TIMER_SOFTIRQ,
+ 	RCU_SOFTIRQ,    /* Preferable RCU should always be the last softirq */
+ 
+ 	NR_SOFTIRQS
+--- kernel/softirq.c.orig	2025-09-20 05:31:00.290923809 +0300
++++ kernel/softirq.c	2025-09-20 05:33:33.215708227 +0300
+@@ -716,6 +716,7 @@
+ 	raise_softirq_irqoff(nr);
+ 	local_irq_restore(flags);
+ }
++EXPORT_SYMBOL(raise_softirq);
+ 
+ void __raise_softirq_irqoff(unsigned int nr)
+ {
+@@ -728,6 +729,7 @@
+ {
+ 	softirq_vec[nr].action = action;
+ }
++EXPORT_SYMBOL(open_softirq);
+ 
+ /*
+  * Tasklets
