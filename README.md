@@ -10,4 +10,5 @@
   Сравнение производительности многопоточных программ в kernel space и user space.
 * [HW\_05\_deferred\_exec\_mech](https://github.com/E-Mi-Zh/otus_kern/tree/master/HW_05_deferred_exec_mech) -
   Механизмы отложенного выполнения (Softirq, Tasklets, Workqueue).
-
+* [HW\_06\_timer](https://github.com/E-Mi-Zh/otus_kern/tree/master/HW_06_timer) -
+  API таймеров в ядре Linux.
