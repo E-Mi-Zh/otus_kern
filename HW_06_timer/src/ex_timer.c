@@ -9,17 +9,18 @@
 
 #define TIMER_INTERVAL_MS 30000 /* 30 seconds = half minute */
 #define TOTAL_TIMER_MS 300000 /* 5 minutes = 300 seconds */
-#define MAX_TRIGGERS \
-	(TOTAL_TIMER_MS / TIMER_INTERVAL_MS) /* total 10 timer triggers */
 
 static struct timer_list hello_timer;
 static int trigger_count;
 static unsigned long start_time_jiffies;
 static unsigned long end_time_jiffies;
+static unsigned long next_time_jiffies;
 
 static void my_timer_callback(struct timer_list *t)
 {
 	unsigned long current_jiffies = jiffies;
+	int minutes = jiffies_to_msecs(current_jiffies - start_time_jiffies) /
+		      (1000 * 60);
 
 	trigger_count++;
 	/* will print every 30 seconds, so first message will be in 0:30 s = 0 minute */
@@ -29,13 +30,16 @@ static void my_timer_callback(struct timer_list *t)
 	/* eight message: 9:00 s = 4 minute */
 	/* nine message: 9:30 s = 4 minute */
 	/* last message: 10:00 s = 5 minute */
-	pr_info("min=%d: Hello, timer!\n", (trigger_count / 2));
+	pr_info("min=%d: Hello, timer!\n", minutes);
 
-	if (time_before(current_jiffies, end_time_jiffies) && (trigger_count < MAX_TRIGGERS)) {
-		mod_timer(&hello_timer, jiffies + msecs_to_jiffies(TIMER_INTERVAL_MS));
+	if (time_before(current_jiffies, end_time_jiffies)) {
+		next_time_jiffies =
+			next_time_jiffies + msecs_to_jiffies(TIMER_INTERVAL_MS);
+		mod_timer(&hello_timer, next_time_jiffies);
+
 	} else {
 		pr_info("[TIMER] Timer stopped after %d triggers (%d minutes).\n",
-			trigger_count, (trigger_count * TIMER_INTERVAL_MS / (1000 * 60)));
+			trigger_count, minutes);
 	}
 }
 
@@ -44,15 +48,18 @@ static int __init timer_module_init(void)
 	pr_info("[INIT] %s module loaded\n", KBUILD_MODNAME);
 
 	start_time_jiffies = jiffies;
-	end_time_jiffies = start_time_jiffies + msecs_to_jiffies(TOTAL_TIMER_MS);
+	end_time_jiffies =
+		start_time_jiffies + msecs_to_jiffies(TOTAL_TIMER_MS);
+	next_time_jiffies =
+		start_time_jiffies + msecs_to_jiffies(TIMER_INTERVAL_MS);
 	trigger_count = 0;
 
 	timer_setup(&hello_timer, my_timer_callback, 0);
-	mod_timer(&hello_timer, jiffies + msecs_to_jiffies(TIMER_INTERVAL_MS));
+	mod_timer(&hello_timer, next_time_jiffies);
 
 	pr_info("[INIT] Timer started. Will trigger every %d seconds (%d ms), up to %d minutes.\n",
 		TIMER_INTERVAL_MS / 1000, TIMER_INTERVAL_MS,
-		(MAX_TRIGGERS * TIMER_INTERVAL_MS / (1000 * 60)));
+		(TOTAL_TIMER_MS / (1000 * 60)));
 
 	return 0;
 }
