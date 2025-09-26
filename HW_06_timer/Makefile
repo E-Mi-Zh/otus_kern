@@ -40,12 +40,12 @@ format-python:
 	   $(PYTHON_FORMAT_TOOL) $(PYTHON_FORMAT_FILES)
 
 load: all
-	insmod $(BUILD_DIR)/$(TIMER_MODULE_NAME).ko
-	@echo "Module $(TIMER_MODULE_NAME) loaded"
+	insmod $(BUILD_DIR)/$(TIMER_MODULE).ko
+	@echo "Module $(TIMER_MODULE) loaded"
 
 unload:
-	rmmod $(TIMER_MODULE_NAME) || true
-	@echo "Module $(TIMER_MODULE_NAME) unloaded"
+	rmmod $(TIMER_MODULE) || true
+	@echo "Module $(TIMER_MODULE) unloaded"
 
 check: check-timer
 
