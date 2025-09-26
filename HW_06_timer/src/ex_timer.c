@@ -13,13 +13,15 @@
 	(TOTAL_TIMER_MS / TIMER_INTERVAL_MS) /* total 10 timer triggers */
 
 static struct timer_list hello_timer;
-static atomic_t trigger_count = ATOMIC_INIT(0);
+static int trigger_count;
 static unsigned long start_time_jiffies;
+static unsigned long end_time_jiffies;
 
 static void my_timer_callback(struct timer_list *t)
 {
-	int count = atomic_inc_return(&trigger_count);
+	unsigned long current_jiffies = jiffies;
 
+	trigger_count++;
 	/* will print every 30 seconds, so first message will be in 0:30 s = 0 minute */
 	/* second message: 1:00 s = 1 minute */
 	/* third message: 1:30 s = 1 minute */
@@ -27,14 +29,13 @@ static void my_timer_callback(struct timer_list *t)
 	/* eight message: 9:00 s = 4 minute */
 	/* nine message: 9:30 s = 4 minute */
 	/* last message: 10:00 s = 5 minute */
-	pr_info("min=%d: Hello, timer!\n", (count / 2));
+	pr_info("min=%d: Hello, timer!\n", (trigger_count / 2));
 
-	if (count < MAX_TRIGGERS) {
-		mod_timer(&hello_timer,
-			  jiffies + msecs_to_jiffies(TIMER_INTERVAL_MS));
+	if (time_before(current_jiffies, end_time_jiffies) && (trigger_count < MAX_TRIGGERS)) {
+		mod_timer(&hello_timer, jiffies + msecs_to_jiffies(TIMER_INTERVAL_MS));
 	} else {
 		pr_info("[TIMER] Timer stopped after %d triggers (%d minutes).\n",
-			count, (count * TIMER_INTERVAL_MS / (1000 * 60)));
+			trigger_count, (trigger_count * TIMER_INTERVAL_MS / (1000 * 60)));
 	}
 }
 
@@ -43,6 +44,8 @@ static int __init timer_module_init(void)
 	pr_info("[INIT] %s module loaded\n", KBUILD_MODNAME);
 
 	start_time_jiffies = jiffies;
+	end_time_jiffies = start_time_jiffies + msecs_to_jiffies(TOTAL_TIMER_MS);
+	trigger_count = 0;
 
 	timer_setup(&hello_timer, my_timer_callback, 0);
 	mod_timer(&hello_timer, jiffies + msecs_to_jiffies(TIMER_INTERVAL_MS));
@@ -68,7 +71,7 @@ static void __exit timer_module_exit(void)
 	seconds = elapsed_seconds % 60;
 
 	pr_info("[EXIT] %s module unloaded\n", KBUILD_MODNAME);
-	pr_info("[EXIT] Total triggers: %d\n", atomic_read(&trigger_count));
+	pr_info("[EXIT] Total triggers: %d\n", trigger_count);
 	pr_info("[EXIT] Total runtime: %d minutes %d seconds\n", minutes,
 		seconds);
 }
