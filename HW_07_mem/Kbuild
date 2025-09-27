@@ -1,0 +1,5 @@
+obj-m += src/ex_kmalloc.o
+obj-m += src/ex_vmalloc.o
+obj-m += src/ex_kmem_cache.o
+obj-m += src/ex_mempool.o
+obj-m += src/ex_get_page.o
