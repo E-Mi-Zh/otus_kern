@@ -27,11 +27,13 @@ static void test_kmem_cache_allocation(void)
 	ktime_t start_time, end_time;
 	s64 alloc_time_ns;
 	int i;
+	u64 cache_size_bytes = (u64) cache_size_kb * 1024;
+	u64 total_memory;
 
 	pr_info("kmem_cache: creating cache with object size %d byte\n",
 		cache_size_kb * 1024);
 
-	my_cache = kmem_cache_create("my_test_cache", cache_size_kb * 1024, 0,
+	my_cache = kmem_cache_create("my_test_cache", cache_size_bytes, 0,
 				     SLAB_HWCACHE_ALIGN, NULL);
 	if (!my_cache) {
 		pr_err("kmem_cache: FAIL, err_msg = Cache creation failed\n");
@@ -54,9 +56,10 @@ static void test_kmem_cache_allocation(void)
 	end_time = ktime_get();
 	alloc_time_ns = ktime_to_ns(ktime_sub(end_time, start_time)) / num_objs;
 
-	pr_info("kmem_cache: %d objects allocated, avg time per object: %lld ns, type: PHYSICALLY_CONTIGUOUS\n",
+	pr_info("kmem_cache: %u objects allocated, avg time per object: %lld ns, type: PHYSICALLY_CONTIGUOUS\n",
 		num_objs, alloc_time_ns);
-	pr_info("kmem_cache: total memory size: %u bytes\n", num_objs * cache_size_kb * 1024);
+	pr_info("kmem_cache: total memory size: %llu bytes\n",
+		(u64)num_objs * cache_size_bytes);
 
 cleanup:
 	for (i = 0; i < num_objs; i++) {
