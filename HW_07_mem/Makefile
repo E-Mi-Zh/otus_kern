@@ -23,6 +23,8 @@ PYTHON_FORMAT_FILES = \
 	$(TEST_DIR)/base_tester.py \
 	$(TEST_DIR)/main.py \
 	$(TEST_DIR)/kmalloc_tester.py \
+	$(TEST_DIR)/vmalloc_tester.py \
+	$(TEST_DIR)/kmem_cache_tester.py \
 
 $(shell mkdir -p $(BUILD_DIR))
 
@@ -43,10 +45,16 @@ format:
 format-python:
 	   $(PYTHON_FORMAT_TOOL) $(PYTHON_FORMAT_FILES)
 
-check: check-kmalloc
+check: check-kmalloc check-vmalloc check-kmem_cache
 
 check-kmalloc:
 	$(TEST_SCRIPT) kmalloc $(KMALLOC_MODULE)
+
+check-vmalloc:
+	$(TEST_SCRIPT) vmalloc $(VMALLOC_MODULE)
+
+check-kmem_cache:
+	$(TEST_SCRIPT) kmem_cache $(KMEM_CACHE_MODULE)
 
 install: all
 	@echo "Installing module to /lib/modules/$(shell uname -r)/extra/src"
@@ -117,7 +125,7 @@ help:
 	@echo "  format-python    - Format Python source code with black"
 	@echo "  check            - Test all modules"
 	@echo "  check-kmalloc    - Test kmalloc module"
-	@echo "  check-tasklet    - Test tasklet module"
-	@echo "  check-workqueue  - Test workqueue module"
+	@echo "  check-vmalloc    - Test vmalloc module"
+	@echo "  check-kmem_cache - Test kmem_cache module"
 	@echo "  install          - Install module to system"
 	@echo "  uninstall        - Remove module from system"
