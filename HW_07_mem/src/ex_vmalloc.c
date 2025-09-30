@@ -6,21 +6,22 @@
 #include <linux/vmalloc.h>
 #include <linux/ktime.h>
 
-#define ALLOC_SIZE (1024 * 1024)
-#define NUM_ALLOCS 100
+/* Module parameter for allocation size in KB */
+static unsigned int alloc_size_kb = 4;  /* Default: 4KB */
+module_param(alloc_size_kb, uint, 0644);
+MODULE_PARM_DESC(alloc_size_kb, "Allocation size in kilobytes (default: 4)");
 
 static void test_vmalloc_allocation(void)
 {
 	void *ptr;
 	ktime_t start_time, end_time;
 	s64 alloc_time_ns;
-	int i;
 
-	pr_info("vmalloc: %d byte\n", ALLOC_SIZE);
+	pr_info("vmalloc: %d byte\n", alloc_size_kb * 1024);
 
 	start_time = ktime_get();
 
-	ptr = vmalloc(ALLOC_SIZE);
+	ptr = vmalloc(alloc_size_kb * 1024);
 	if (!ptr) {
 		pr_err("vmalloc: FAIL, err_msg = Allocation failed\n");
 		return;
@@ -31,21 +32,7 @@ static void test_vmalloc_allocation(void)
 	pr_info("vmalloc: SUCCESS\n");
 	alloc_time_ns = ktime_to_ns(ktime_sub(end_time, start_time));
 	pr_info("vmalloc: %d byte, %lld ns, type: VIRTUAL_NON_CONTIGUOUS\n",
-		ALLOC_SIZE, alloc_time_ns);
-
-	/* Test multiple allocations */
-	start_time = ktime_get();
-	for (i = 0; i < NUM_ALLOCS; i++) {
-		void *temp_ptr = vmalloc(ALLOC_SIZE);
-		if (temp_ptr) {
-			vfree(temp_ptr);
-		}
-	}
-	end_time = ktime_get();
-	alloc_time_ns =
-		ktime_to_ns(ktime_sub(end_time, start_time)) / NUM_ALLOCS;
-	pr_info("vmalloc: multiple alloc/free test. %d operations, avg time: %lld ns\n",
-		i, alloc_time_ns);
+		alloc_size_kb * 1024, alloc_time_ns);
 }
 
 static int __init vmalloc_module_init(void)
