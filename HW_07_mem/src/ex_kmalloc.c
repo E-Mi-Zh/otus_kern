@@ -7,7 +7,7 @@
 #include <linux/ktime.h>
 
 /* Module parameter for allocation size in KB */
-static unsigned int alloc_size_kb = 4;  /* Default: 4KB */
+static unsigned int alloc_size_kb = 4; /* Default: 4KB */
 module_param(alloc_size_kb, uint, 0644);
 MODULE_PARM_DESC(alloc_size_kb, "Allocation size in kilobytes (default: 4)");
 

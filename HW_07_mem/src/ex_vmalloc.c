@@ -7,7 +7,7 @@
 #include <linux/ktime.h>
 
 /* Module parameter for allocation size in KB */
-static unsigned int alloc_size_kb = 4;  /* Default: 4KB */
+static unsigned int alloc_size_kb = 4; /* Default: 4KB */
 module_param(alloc_size_kb, uint, 0644);
 MODULE_PARM_DESC(alloc_size_kb, "Allocation size in kilobytes (default: 4)");
 
@@ -16,7 +16,7 @@ static void test_vmalloc_allocation(void)
 	void *ptr;
 	ktime_t start_time, end_time;
 	s64 alloc_time_ns;
-	u64 alloc_size_bytes = (u64) alloc_size_kb * 1024;
+	u64 alloc_size_bytes = (u64)alloc_size_kb * 1024;
 
 	pr_info("vmalloc: %d alloc_size_kb\n", alloc_size_kb);
 	pr_info("vmalloc: %llu byte\n", alloc_size_bytes);
