@@ -6,8 +6,12 @@
 #include <linux/slab.h>
 #include <linux/ktime.h>
 
-#define ALLOC_SIZE (1024 * 1024)
 #define NUM_ALLOCS 100
+
+/* Module parameter for allocation size in KB */
+static unsigned int alloc_size_kb = 4;  /* Default: 4KB */
+module_param(alloc_size_kb, uint, 0644);
+MODULE_PARM_DESC(alloc_size_kb, "Allocation size in kilobytes (default: 4)");
 
 static void test_kmalloc_allocation(void)
 {
@@ -16,11 +20,11 @@ static void test_kmalloc_allocation(void)
 	s64 alloc_time_ns;
 	int i;
 
-	pr_info("kmalloc: %d byte\n", ALLOC_SIZE);
+	pr_info("kmalloc: %d byte\n", alloc_size_kb * 1024);
 
 	start_time = ktime_get();
 
-	ptr = kmalloc(ALLOC_SIZE, GFP_KERNEL);
+	ptr = kmalloc(alloc_size_kb * 1024, GFP_KERNEL);
 	if (!ptr) {
 		pr_err("kmalloc: FAIL, err_msg = Allocation failed\n");
 		return;
@@ -31,12 +35,12 @@ static void test_kmalloc_allocation(void)
 	pr_info("kmalloc: SUCCESS\n");
 	alloc_time_ns = ktime_to_ns(ktime_sub(end_time, start_time));
 	pr_info("kmalloc: %d byte, %lld ns, type: PHYSICALLY_CONTIGUOUS\n",
-		ALLOC_SIZE, alloc_time_ns);
+		alloc_size_kb * 1024, alloc_time_ns);
 
 	/* Test multiple allocations */
 	start_time = ktime_get();
 	for (i = 0; i < NUM_ALLOCS; i++) {
-		void *temp_ptr = kmalloc(ALLOC_SIZE, GFP_KERNEL);
+		void *temp_ptr = kmalloc(alloc_size_kb * 1024, GFP_KERNEL);
 		if (temp_ptr) {
 			kfree(temp_ptr);
 		}
