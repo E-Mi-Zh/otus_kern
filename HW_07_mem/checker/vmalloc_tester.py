@@ -70,18 +70,18 @@ class ExVmallocTester(BaseModuleTester):
         # Pattern for successful allocation
         success_pattern = rf"vmalloc: ({requested_kb}|\d+) byte.*vmalloc: SUCCESS.*vmalloc: (\d+) byte, (\d+) ns"
         success_match = re.search(success_pattern, dmesg_output, re.DOTALL)
-        
+
         if success_match:
             allocated_bytes = int(success_match.group(2))
             time_ns = int(success_match.group(3))
             allocated_kb = allocated_bytes // 1024
             return allocated_kb, time_ns
-        
+
         # Pattern for failed allocation
         fail_pattern = r"vmalloc: FAIL"
         if re.search(fail_pattern, dmesg_output):
             return "FAIL", None
-        
+
         return None, None
 
     def test_allocation_with_different_sizes(self):
@@ -94,7 +94,7 @@ class ExVmallocTester(BaseModuleTester):
         while size <= 32 * 1024 * 1024:  # 32 * 1024 MB in KB
             test_sizes.append(size)
             size *= 2
-        
+
         self.allocation_stats = []  # Reset stats for this test run
 
         for size in test_sizes:
@@ -102,28 +102,28 @@ class ExVmallocTester(BaseModuleTester):
             self.clear_dmesg()
             # Load module with parameter
             self.load_module(f"alloc_size_kb={size}")
-            
+
             # Parse allocation statistics from dmesg
             dmesg_output = self.get_dmesg_output()
             allocated, time_ns = self.parse_allocation_stats(dmesg_output, size)
-            
+
             if allocated is not None:
-                self.allocation_stats.append({
-                    'requested_kb': size,
-                    'allocated_kb': allocated,
-                    'time_ns': time_ns
-                })
+                self.allocation_stats.append(
+                    {
+                        "requested_kb": size,
+                        "allocated_kb": allocated,
+                        "time_ns": time_ns,
+                    }
+                )
                 status = "SUCCESS" if allocated != "FAIL" else "FAIL"
                 print(f"Allocation result: {status}")
                 if time_ns:
                     print(f"Allocation time: {time_ns} ns")
             else:
                 print("Warning: Could not parse allocation statistics from dmesg")
-                self.allocation_stats.append({
-                    'requested_kb': size,
-                    'allocated_kb': "UNKNOWN",
-                    'time_ns': None
-                })
+                self.allocation_stats.append(
+                    {"requested_kb": size, "allocated_kb": "UNKNOWN", "time_ns": None}
+                )
 
             # Check for allocation with correct size
             self.assert_dmesg_contains(
@@ -131,7 +131,7 @@ class ExVmallocTester(BaseModuleTester):
             )
 
             self.unload_module()
-        
+
         # Print statistics table after all size tests
         self.print_allocation_stats()
 
@@ -145,12 +145,11 @@ class ExVmallocTester(BaseModuleTester):
         self.assert_dmesg_contains(
             rf"\[INIT\] {self.module_name} module loaded", "Module load message"
         )
-        
-        # Test unloading message  
+
+        # Test unloading message
         self.unload_module()
         self.assert_dmesg_contains(
-            rf"\[EXIT\] {self.module_name} module unloaded",
-            "Module unload message"
+            rf"\[EXIT\] {self.module_name} module unloaded", "Module unload message"
         )
 
     def print_allocation_stats(self):
@@ -158,32 +157,34 @@ class ExVmallocTester(BaseModuleTester):
         if not self.allocation_stats:
             print("\nNo allocation statistics collected")
             return
-        
+
         print("\n=== Allocation Statistics ===")
         print(self.STATS_HEADER)
         print(self.STATS_SEPARATOR)
-        
+
         total_time = 0
         successful_allocations = 0
-        
+
         for stat in self.allocation_stats:
-            requested = stat['requested_kb']
-            allocated = stat['allocated_kb']
-            time_ns = stat['time_ns']
-            
+            requested = stat["requested_kb"]
+            allocated = stat["allocated_kb"]
+            time_ns = stat["time_ns"]
+
             # Format the time column
             time_str = f"{time_ns:>13}" if time_ns is not None else " " * 13
-            
+
             print(f"| {requested:>14} | {allocated!s:>14} | {time_str} |")
-            
+
             # Calculate average time for successful allocations
             if time_ns is not None:
                 total_time += time_ns
                 successful_allocations += 1
-        
+
         # Print average time
         if successful_allocations > 0:
-            print(f"\nAverage allocation time: {total_time // successful_allocations} ns")
+            print(
+                f"\nAverage allocation time: {total_time // successful_allocations} ns"
+            )
 
     def run_all_tests(self):
         """Run all tests for ex_vmalloc module"""
