@@ -22,9 +22,7 @@ PYTHON_FORMAT_FILES = \
 	$(TEST_DIR)/__init__.py \
 	$(TEST_DIR)/base_tester.py \
 	$(TEST_DIR)/main.py \
-	$(TEST_DIR)/softirq_tester.py \
-	$(TEST_DIR)/tasklet_tester.py \
-	$(TEST_DIR)/workqueue_tester.py \
+	$(TEST_DIR)/kmalloc_tester.py \
 
 $(shell mkdir -p $(BUILD_DIR))
 
@@ -45,16 +43,10 @@ format:
 format-python:
 	   $(PYTHON_FORMAT_TOOL) $(PYTHON_FORMAT_FILES)
 
-check: check-softirq check-tasklet check-workqueue
+check: check-kmalloc
 
-check-softirq:
-	$(TEST_SCRIPT) softirq $(SOFTIRQ_MODULE)
-
-check-tasklet:
-	$(TEST_SCRIPT) tasklet $(TASKLET_MODULE)
-
-check-workqueue:
-	$(TEST_SCRIPT) workqueue $(WORKQUEUE_MODULE)
+check-kmalloc:
+	$(TEST_SCRIPT) kmalloc $(KMALLOC_MODULE)
 
 install: all
 	@echo "Installing module to /lib/modules/$(shell uname -r)/extra/src"
@@ -124,7 +116,7 @@ help:
 	@echo "  format           - Format source code with clang-format"
 	@echo "  format-python    - Format Python source code with black"
 	@echo "  check            - Test all modules"
-	@echo "  check-softirq    - Test softirq module"
+	@echo "  check-kmalloc    - Test kmalloc module"
 	@echo "  check-tasklet    - Test tasklet module"
 	@echo "  check-workqueue  - Test workqueue module"
 	@echo "  install          - Install module to system"
