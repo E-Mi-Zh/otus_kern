@@ -16,12 +16,14 @@ static void test_vmalloc_allocation(void)
 	void *ptr;
 	ktime_t start_time, end_time;
 	s64 alloc_time_ns;
+	u64 alloc_size_bytes = (u64) alloc_size_kb * 1024;
 
-	pr_info("vmalloc: %d byte\n", alloc_size_kb * 1024);
+	pr_info("vmalloc: %d alloc_size_kb\n", alloc_size_kb);
+	pr_info("vmalloc: %llu byte\n", alloc_size_bytes);
 
 	start_time = ktime_get();
 
-	ptr = vmalloc(alloc_size_kb * 1024);
+	ptr = vmalloc(alloc_size_bytes);
 	if (!ptr) {
 		pr_err("vmalloc: FAIL, err_msg = Allocation failed\n");
 		return;
@@ -31,8 +33,8 @@ static void test_vmalloc_allocation(void)
 
 	pr_info("vmalloc: SUCCESS\n");
 	alloc_time_ns = ktime_to_ns(ktime_sub(end_time, start_time));
-	pr_info("vmalloc: %d byte, %lld ns, type: VIRTUAL_NON_CONTIGUOUS\n",
-		alloc_size_kb * 1024, alloc_time_ns);
+	pr_info("vmalloc: %llu byte, %lld ns, type: VIRTUAL_NON_CONTIGUOUS\n",
+		alloc_size_bytes, alloc_time_ns);
 }
 
 static int __init vmalloc_module_init(void)
