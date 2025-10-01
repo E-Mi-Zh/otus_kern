@@ -16,12 +16,14 @@ static void test_kmalloc_allocation(void)
 	void *ptr;
 	ktime_t start_time, end_time;
 	s64 alloc_time_ns;
+	u64 alloc_size_bytes = (u64)alloc_size_kb * 1024;
 
-	pr_info("kmalloc: %d byte\n", alloc_size_kb * 1024);
+	pr_info("kmalloc: %d alloc_size_kb\n", alloc_size_kb);
+	pr_info("kmalloc: %llu byte\n", alloc_size_bytes);
 
 	start_time = ktime_get();
 
-	ptr = kmalloc(alloc_size_kb * 1024, GFP_KERNEL);
+	ptr = kmalloc(alloc_size_bytes, GFP_KERNEL);
 	if (!ptr) {
 		pr_err("kmalloc: FAIL, err_msg = Allocation failed\n");
 		return;
@@ -31,8 +33,8 @@ static void test_kmalloc_allocation(void)
 
 	pr_info("kmalloc: SUCCESS\n");
 	alloc_time_ns = ktime_to_ns(ktime_sub(end_time, start_time));
-	pr_info("kmalloc: %d byte, %lld ns, type: PHYSICALLY_CONTIGUOUS\n",
-		alloc_size_kb * 1024, alloc_time_ns);
+	pr_info("kmalloc: %llu byte, %lld ns, type: PHYSICALLY_CONTIGUOUS\n",
+		alloc_size_bytes, alloc_time_ns);
 }
 
 static int __init kmalloc_module_init(void)
