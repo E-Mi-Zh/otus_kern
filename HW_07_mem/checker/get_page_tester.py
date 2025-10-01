@@ -107,7 +107,7 @@ class ExGetPageTester(BaseModuleTester):
         # Generate page count series: doubling until we find failure
         test_counts = []
         count = 1  # Start from 1 page
-        max_count = 1024 * 1024 * 16 // 4  # Up to 8 million pages (32GB)
+        max_count = 1024 * 1024 * 16 // 4  # Up to 4 million pages (16GB)
 
         while count <= max_count:
             test_counts.append(count)
