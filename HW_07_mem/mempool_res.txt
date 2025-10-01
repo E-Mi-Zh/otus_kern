@@ -1,0 +1,42 @@
+=== Element Size Statistics ===
+| Element Size (kb) | Status          | Avg Time (ns)  |
+|-------------------|-----------------|----------------|
+|                 1 |         SUCCESS |            1854 |
+|                 2 |         SUCCESS |            1793 |
+|                 4 |         SUCCESS |            3376 |
+|                 8 |         SUCCESS |            3206 |
+|                16 |         SUCCESS |            2745 |
+|                32 |         SUCCESS |            3116 |
+|                64 |         SUCCESS |            6161 |
+|               128 |         SUCCESS |           11562 |
+|               256 |         SUCCESS |           19657 |
+|               512 |         SUCCESS |           34865 |
+|              1024 |         SUCCESS |           68809 |
+|              2048 |         SUCCESS |          137338 |
+|              4096 |         SUCCESS |          331013 |
+|              8192 |            FAIL |                 |
+
+Average allocation time per KB: 370 ns
+
+=== Pool Size Sweep Test (element_size_kb=4096) ===
+
+=== Pool Size Statistics ===
+| Pool Size         | Status          | Avg Time (ns)  | Total Memory    |
+|-------------------|-----------------|----------------|----------------|
+|                 1 |         SUCCESS |          342875 |            4096 |
+|                 2 |         SUCCESS |         2321463 |            8192 |
+|                 4 |         SUCCESS |         1408938 |           16384 |
+|                 8 |         SUCCESS |         2763051 |           32768 |
+|                16 |         SUCCESS |         2375395 |           65536 |
+|                32 |         SUCCESS |         2362269 |          131072 |
+|                64 |         SUCCESS |         2381505 |          262144 |
+|               128 |         SUCCESS |         2274471 |          524288 |
+|               256 |         SUCCESS |         2279148 |         1048576 |
+|               512 |         SUCCESS |         2263109 |         2097152 |
+|              1024 |         SUCCESS |         2247590 |         4194304 |
+|              2048 |         SUCCESS |         2223369 |         8388608 |
+|              4096 |         SUCCESS |          756199 |        16777216 |
+|              8192 |            FAIL |                 |                 |
+
+Average allocation time per KB: 46 ns
+

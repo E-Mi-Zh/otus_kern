@@ -1,0 +1,28 @@
+=== Page Count Statistics ===
+| Num Pages       | Status          | Avg Time (ns)  | Total Memory (KB) |
+|-----------------|-----------------|----------------|-------------------|
+|               1 |         SUCCESS |             651 |                  4 |
+|               2 |         SUCCESS |             701 |                  8 |
+|               4 |         SUCCESS |             258 |                 16 |
+|               8 |         SUCCESS |             473 |                 32 |
+|              16 |         SUCCESS |             450 |                 64 |
+|              32 |         SUCCESS |             244 |                128 |
+|              64 |         SUCCESS |             508 |                256 |
+|             128 |         SUCCESS |             890 |                512 |
+|             256 |         SUCCESS |             858 |               1024 |
+|             512 |         SUCCESS |             869 |               2048 |
+|            1024 |         SUCCESS |             770 |               4096 |
+|            2048 |         SUCCESS |             806 |               8192 |
+|            4096 |         SUCCESS |             803 |              16384 |
+|            8192 |         SUCCESS |             856 |              32768 |
+|           16384 |         SUCCESS |             773 |              65536 |
+|           32768 |         SUCCESS |             771 |             131072 |
+|           65536 |         SUCCESS |             620 |             262144 |
+|          131072 |         SUCCESS |            1588 |             524288 |
+|          262144 |         SUCCESS |            1477 |            1048576 |
+|          524288 |         SUCCESS |            1454 |            2097152 |
+|         1048576 |         SUCCESS |            1460 |            4194304 |
+|         2097152 |         SUCCESS |            1415 |            8388608 |
+|         4194304 |         SUCCESS |            1417 |           16777216 |
+
+Average allocation time per KB: 12 ns
