@@ -10,13 +10,13 @@
 /* Module parameter for pool element size in KB */
 static unsigned int element_size_kb = 1; /* Default: 1KB */
 module_param(element_size_kb, uint, 0644);
-MODULE_PARM_DESC(element_size_kb, "Pool element size in kilobytes (default: 1)");
+MODULE_PARM_DESC(element_size_kb,
+		 "Pool element size in kilobytes (default: 1)");
 
 /* Module parameter for number of objects in pool */
 static unsigned int pool_size = 1; /* Default: 1 */
 module_param(pool_size, uint, 0644);
 MODULE_PARM_DESC(pool_size, "Number of objects in pool (default: 1)");
-
 
 static mempool_t *my_mempool;
 static void **objects;

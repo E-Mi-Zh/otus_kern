@@ -24,7 +24,7 @@ static void test_kmem_cache_allocation(void)
 	ktime_t start_time, end_time;
 	s64 alloc_time_ns;
 	int i;
-	u64 cache_size_bytes = (u64) cache_size_kb * 1024;
+	u64 cache_size_bytes = (u64)cache_size_kb * 1024;
 
 	pr_info("kmem_cache: creating cache with object size %d byte\n",
 		cache_size_kb * 1024);
@@ -97,4 +97,5 @@ module_exit(kmem_cache_module_exit);
 
 MODULE_LICENSE("GPL");
 MODULE_AUTHOR("Jack");
-MODULE_DESCRIPTION("Kmem_cache allocation example module");/* Module parameter for cache size in KB */
+MODULE_DESCRIPTION(
+	"Kmem_cache allocation example module"); /* Module parameter for cache size in KB */
