@@ -1,0 +1,312 @@
+<h1 id="сравнение-различных-функций-выделения-памяти">Сравнение
+различных функций выделения памяти</h1>
+<h2 id="теория">Теория</h2>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 15%" />
+<col style="width: 33%" />
+<col style="width: 14%" />
+<col style="width: 17%" />
+<col style="width: 8%" />
+<col style="width: 10%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Аллокатор</th>
+<th>Макс. размер за раз</th>
+<th>Скорость</th>
+<th>Тип памяти</th>
+<th>Плюсы</th>
+<th>Минусы</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>kmalloc</td>
+<td>До 4 МБ (обычно),<br>до 128 МБ с GFP_DMA</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>vmalloc</td>
+<td>До размера виртуальной памяти</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>kmem_cache</td>
+<td>Ограничено размером slab<br>(обычно до нескольких МБ, зависит от
+кэша)</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>mempool</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>get_page</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="методология">Методология</h2>
+<p>Для <code>kmalloc</code> и <code>vmalloc</code> скриптом для проверки
+определялся максимальный размер памяти, выделяемый за раз. Для пулов
+(<code>kmem_cache</code>, <code>mempool</code>) сперва определялся
+максимальный размер объекта (при количестве объектов равным 1), затем с
+этим максимальным размером пытались выделить множество объектов, пока не
+получалась ошибка. Для <code>get_page</code> размер страницы
+фиксированный (4кб), поэтому пытался получить максимальное количество
+страниц. Для всех методов считалось время выделения в нс и среднее время
+на кб по всем попыткам (для пулов приводится сперва среднее время
+выделения кб для одного объекта, а потом для пула).</p>
+<p>Тестовый стенд представлял собой виртуальную машину (QEMU) c 32 Гб
+памяти.</p>
+<h2 id="таблица-с-результатами">Таблица с результатами</h2>
+<table>
+<colgroup>
+<col style="width: 12%" />
+<col style="width: 18%" />
+<col style="width: 18%" />
+<col style="width: 26%" />
+<col style="width: 24%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Функция</th>
+<th>Макс. kb за раз</th>
+<th>Время аллокации</th>
+<th>Тип</th>
+<th>Макс. памяти в целом</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>kmalloc</td>
+<td>4096</td>
+<td>51439</td>
+<td>PHYSICALLY_CONTIGUOUS</td>
+<td>4096</td>
+</tr>
+<tr class="even">
+<td>vmalloc</td>
+<td>16777216</td>
+<td>806327534</td>
+<td>VIRTUAL_NON_CONTIGUOUS</td>
+<td>16777216</td>
+</tr>
+<tr class="odd">
+<td>kmem_cache</td>
+<td>4096</td>
+<td>1401 / 20</td>
+<td>PHYSICALLY_CONTIGUOUS</td>
+<td>16777216</td>
+</tr>
+<tr class="even">
+<td>mempool</td>
+<td>4096</td>
+<td>370 / 46</td>
+<td>PHYSICALLY_CONTIGUOUS</td>
+<td>16777216</td>
+</tr>
+<tr class="odd">
+<td>get_page</td>
+<td>4</td>
+<td>12</td>
+<td>PHYSICAL_PAGE</td>
+<td>16777216</td>
+</tr>
+</tbody>
+</table>
+<h2 id="логи-замеров">Логи замеров</h2>
+<p>Таблицы взяты из вывода тест скрипта
+<code>checker/main.py</code>.</p>
+<h3 id="kmalloc">kmalloc</h3>
+<pre class="text"><code>=== Allocation Statistics ===
+| Requested (kb) | Allocated (kb) | Time (ns)     |
+|----------------|----------------|---------------|
+|              1 |              1 |          5401 |
+|              2 |              2 |          4128 |
+|              4 |              4 |          4309 |
+|              8 |              8 |          4849 |
+|             16 |             16 |          3396 |
+|             32 |             32 |          4118 |
+|             64 |             64 |          6442 |
+|            128 |            128 |         11491 |
+|            256 |            256 |         21360 |
+|            512 |            512 |         42930 |
+|           1024 |           1024 |         82835 |
+|           2048 |           2048 |        190078 |
+|           4096 |           4096 |        287370 |
+|           8192 |           FAIL |               |
+|          16384 |           FAIL |               |
+|          32768 |           FAIL |               |
+|          65536 |           FAIL |               |
+|         131072 |           FAIL |               |
+|         262144 |           FAIL |               |
+|         524288 |           FAIL |               |
+|        1048576 |           FAIL |               |
+
+Average allocation time: 51439 ns</code></pre>
+<h3 id="vmalloc">vmalloc</h3>
+<pre class="text"><code>=== Allocation Statistics ===
+| Requested (kb) | Allocated (kb) | Time (ns)     |
+|----------------|----------------|---------------|
+|              1 |              1 |         19167 |
+|              2 |              2 |         17242 |
+|              4 |              4 |         16761 |
+|              8 |              8 |         12935 |
+|             16 |             16 |         14578 |
+|             32 |             32 |         16170 |
+|             64 |             64 |         17393 |
+|            128 |            128 |         22892 |
+|            256 |            256 |         41549 |
+|            512 |            512 |         95169 |
+|           1024 |           1024 |        202131 |
+|           2048 |           2048 |        415702 |
+|           4096 |           4096 |        765962 |
+|           8192 |           8192 |       1451210 |
+|          16384 |          16384 |       2294988 |
+|          32768 |          32768 |       4854504 |
+|          65536 |          65536 |       9705462 |
+|         131072 |         131072 |      18043361 |
+|         262144 |         262144 |      33723784 |
+|         524288 |         524288 |      56583798 |
+|        1048576 |        1048576 |     109334222 |
+|        2097152 |        2097152 |     208436171 |
+|        4194304 |        4194304 |    2810428936 |
+|        8388608 |        8388608 |    5669693460 |
+|       16777216 |       16777216 |   11231980815 |
+|       33554432 |           FAIL |               |
+
+Average allocation time: 806327534 ns</code></pre>
+<h3 id="kmem_cache">kmem_cache</h3>
+<p>Сперва пытаемся выделить 1 объект, удваивая размер.</p>
+<pre class="text"><code>=== Cache Size Statistics ===
+| Cache Size (kb) | Status          | Avg Time (ns)  |
+|-----------------|-----------------|----------------|
+|               1 |         SUCCESS |            8616 |
+|               2 |         SUCCESS |           10340 |
+|               4 |         SUCCESS |            4949 |
+|               8 |         SUCCESS |            8496 |
+|              16 |         SUCCESS |            6682 |
+|              32 |         SUCCESS |           11001 |
+|              64 |         SUCCESS |           16571 |
+|             128 |         SUCCESS |           27302 |
+|             256 |         SUCCESS |           49102 |
+|             512 |         SUCCESS |          109146 |
+|            1024 |         SUCCESS |          220615 |
+|            2048 |         SUCCESS |          303802 |
+|            4096 |         SUCCESS |          517755 |
+|            8192 |            FAIL |                 |
+
+Average allocation time per KB: 1401 ns</code></pre>
+<p>Выделяем несколько объектов максимального размера, определённого на
+предыдущем этапе.</p>
+<pre class="text"><code>=== Object Count Statistics ===
+| Num Objects     | Status          | Avg Time (ns)  | Total Memory (kb) |
+|-----------------|-----------------|----------------|----------------|
+|               1 |         SUCCESS |          556728 |            4096 |
+|               2 |         SUCCESS |          505842 |            8192 |
+|               4 |         SUCCESS |          593595 |           16384 |
+|               8 |         SUCCESS |          556950 |           32768 |
+|              16 |         SUCCESS |          546192 |           65536 |
+|              32 |         SUCCESS |          464879 |          131072 |
+|              64 |         SUCCESS |          508328 |          262144 |
+|             128 |         SUCCESS |          545191 |          524288 |
+|             256 |         SUCCESS |          484276 |         1048576 |
+|             512 |         SUCCESS |          485226 |         2097152 |
+|            1024 |         SUCCESS |          481288 |         4194304 |
+|            2048 |         SUCCESS |          470488 |         8388608 |
+|            4096 |         SUCCESS |          471350 |        16777216 |
+|            8192 |            FAIL |                 |        22999040 |
+
+Average allocation time per KB: 20 ns</code></pre>
+<h3 id="mempool">mempool</h3>
+<p>Сперва пытаемся выделить 1 объект, удваивая размер.</p>
+<pre class="text"><code>=== Element Size Statistics ===
+| Element Size (kb) | Status          | Avg Time (ns)  |
+|-------------------|-----------------|----------------|
+|                 1 |         SUCCESS |            1854 |
+|                 2 |         SUCCESS |            1793 |
+|                 4 |         SUCCESS |            3376 |
+|                 8 |         SUCCESS |            3206 |
+|                16 |         SUCCESS |            2745 |
+|                32 |         SUCCESS |            3116 |
+|                64 |         SUCCESS |            6161 |
+|               128 |         SUCCESS |           11562 |
+|               256 |         SUCCESS |           19657 |
+|               512 |         SUCCESS |           34865 |
+|              1024 |         SUCCESS |           68809 |
+|              2048 |         SUCCESS |          137338 |
+|              4096 |         SUCCESS |          331013 |
+|              8192 |            FAIL |                 |
+
+Average allocation time per KB: 370 ns</code></pre>
+<p>Выделяем несколько объектов максимального размера, определённого на
+предыдущем этапе.</p>
+<pre class="text"><code>=== Pool Size Sweep Test (element_size_kb=4096) ===
+
+=== Pool Size Statistics ===
+| Pool Size         | Status          | Avg Time (ns)  | Total Memory    |
+|-------------------|-----------------|----------------|----------------|
+|                 1 |         SUCCESS |          342875 |            4096 |
+|                 2 |         SUCCESS |         2321463 |            8192 |
+|                 4 |         SUCCESS |         1408938 |           16384 |
+|                 8 |         SUCCESS |         2763051 |           32768 |
+|                16 |         SUCCESS |         2375395 |           65536 |
+|                32 |         SUCCESS |         2362269 |          131072 |
+|                64 |         SUCCESS |         2381505 |          262144 |
+|               128 |         SUCCESS |         2274471 |          524288 |
+|               256 |         SUCCESS |         2279148 |         1048576 |
+|               512 |         SUCCESS |         2263109 |         2097152 |
+|              1024 |         SUCCESS |         2247590 |         4194304 |
+|              2048 |         SUCCESS |         2223369 |         8388608 |
+|              4096 |         SUCCESS |          756199 |        16777216 |
+|              8192 |            FAIL |                 |                 |
+
+Average allocation time per KB: 46 ns</code></pre>
+<h3 id="get_page">get_page</h3>
+<pre class="text"><code>=== Page Count Statistics ===
+| Num Pages       | Status          | Avg Time (ns)  | Total Memory (KB) |
+|-----------------|-----------------|----------------|-------------------|
+|               1 |         SUCCESS |             651 |                  4 |
+|               2 |         SUCCESS |             701 |                  8 |
+|               4 |         SUCCESS |             258 |                 16 |
+|               8 |         SUCCESS |             473 |                 32 |
+|              16 |         SUCCESS |             450 |                 64 |
+|              32 |         SUCCESS |             244 |                128 |
+|              64 |         SUCCESS |             508 |                256 |
+|             128 |         SUCCESS |             890 |                512 |
+|             256 |         SUCCESS |             858 |               1024 |
+|             512 |         SUCCESS |             869 |               2048 |
+|            1024 |         SUCCESS |             770 |               4096 |
+|            2048 |         SUCCESS |             806 |               8192 |
+|            4096 |         SUCCESS |             803 |              16384 |
+|            8192 |         SUCCESS |             856 |              32768 |
+|           16384 |         SUCCESS |             773 |              65536 |
+|           32768 |         SUCCESS |             771 |             131072 |
+|           65536 |         SUCCESS |             620 |             262144 |
+|          131072 |         SUCCESS |            1588 |             524288 |
+|          262144 |         SUCCESS |            1477 |            1048576 |
+|          524288 |         SUCCESS |            1454 |            2097152 |
+|         1048576 |         SUCCESS |            1460 |            4194304 |
+|         2097152 |         SUCCESS |            1415 |            8388608 |
+|         4194304 |         SUCCESS |            1417 |           16777216 |
+
+Average allocation time per KB: 12 ns</code></pre>
