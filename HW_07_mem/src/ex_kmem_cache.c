@@ -6,9 +6,6 @@
 #include <linux/slab.h>
 #include <linux/ktime.h>
 
-#define CACHE_SIZE 1024
-#define NUM_OBJECTS 1024
-
 /* Module parameter for cache size in KB */
 static unsigned int cache_size_kb = 1; /* Default: 1KB */
 module_param(cache_size_kb, uint, 0644);
@@ -28,7 +25,6 @@ static void test_kmem_cache_allocation(void)
 	s64 alloc_time_ns;
 	int i;
 	u64 cache_size_bytes = (u64) cache_size_kb * 1024;
-	u64 total_memory;
 
 	pr_info("kmem_cache: creating cache with object size %d byte\n",
 		cache_size_kb * 1024);
@@ -101,4 +97,4 @@ module_exit(kmem_cache_module_exit);
 
 MODULE_LICENSE("GPL");
 MODULE_AUTHOR("Jack");
-MODULE_DESCRIPTION("Kmem_cache allocation example module");
+MODULE_DESCRIPTION("Kmem_cache allocation example module");/* Module parameter for cache size in KB */
