@@ -97,6 +97,9 @@ static int __init mempool_module_init(void)
 
 static void __exit mempool_module_exit(void)
 {
+	if (objects != NULL) {
+		kfree(objects);
+	}
 	if (my_mempool) {
 		mempool_destroy(my_mempool);
 		pr_info("[EXIT] mempool: pool destroyed\n");
