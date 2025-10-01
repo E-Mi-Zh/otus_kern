@@ -12,3 +12,5 @@
   Механизмы отложенного выполнения (Softirq, Tasklets, Workqueue).
 * [HW\_06\_timer](https://github.com/E-Mi-Zh/otus_kern/tree/master/HW_06_timer) -
   API таймеров в ядре Linux.
+* [HW\_07\_mem](https://github.com/E-Mi-Zh/otus_kern/tree/master/HW_07_mem) -
+  сравнение различных функций аллокаторов.
