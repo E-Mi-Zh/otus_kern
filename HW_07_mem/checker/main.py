@@ -11,6 +11,7 @@ from checker.kmalloc_tester import ExKmallocTester
 from checker.vmalloc_tester import ExVmallocTester
 from checker.kmem_cache_tester import ExKmemCacheTester
 from checker.mempool_tester import ExMempoolTester
+from checker.get_page_tester import ExGetPageTester
 
 
 def main():
@@ -20,10 +21,11 @@ def main():
     )
     parser.add_argument(
         "test_type",
-        choices=["kmalloc", "vmalloc", "kmem_cache", "mempool"],
+        choices=["kmalloc", "vmalloc", "kmem_cache", "mempool", "get_page"],
         help="Test type: kmalloc for kmalloc testing module, \
             vmalloc for vmalloc testing module, kmem_cache for kmem_cache testing module, \
-            mempool for mempool testing module",
+            mempool for mempool testing module, \
+            get_page for get_page testing module",
     )
     parser.add_argument("target_name", help="Name of the target to test")
     args = parser.parse_args()
@@ -44,6 +46,10 @@ def main():
         # Kernel module testing
         tester = ExMempoolTester("ex_mempool")
         module_name = "ex_mempool"
+    elif args.test_type == "get_page":
+        # Kernel module testing
+        tester = ExGetPageTester("ex_get_page")
+        module_name = "ex_get_page"
 
     # Verify module exists
     module_path = f"/lib/modules/{os.uname().release}/extra/src/{args.target_name}.ko"

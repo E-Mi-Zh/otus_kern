@@ -26,6 +26,7 @@ PYTHON_FORMAT_FILES = \
 	$(TEST_DIR)/vmalloc_tester.py \
 	$(TEST_DIR)/kmem_cache_tester.py \
 	$(TEST_DIR)/mempool_tester.py \
+	$(TEST_DIR)/get_page_tester.py \
 
 $(shell mkdir -p $(BUILD_DIR))
 
@@ -60,6 +61,9 @@ check-kmem_cache:
 check-mempool:
 	$(TEST_SCRIPT) mempool $(MEMPOOL_MODULE)
 
+check-get_page:
+	$(TEST_SCRIPT) get_page $(GET_PAGE_MODULE)
+
 install: all
 	@echo "Installing module to /lib/modules/$(shell uname -r)/extra/src"
 	$(MAKE) -C $(KDIR) M=$(PWD) modules_install
@@ -81,7 +85,7 @@ uninstall:
 	depmod -a
 	@echo "Modules uninstalled"
 
-load-kmalloc: $(BUILD_DIR)/$(KMALLOC_MODULE).ko
+load-kmalloc:
 	insmod $(BUILD_DIR)/$(KMALLOC_MODULE).ko
 	@echo "Module $(KMALLOC_MODULE) loaded"
 
@@ -89,7 +93,7 @@ unload-kmalloc:
 	rmmod $(KMALLOC_MODULE) || true
 	@echo "Module $(KMALLOC_MODULE) unloaded"
 
-load-vmalloc: $(BUILD_DIR)/$(VMALLOC_MODULE).ko
+load-vmalloc:
 	insmod $(BUILD_DIR)/$(VMALLOC_MODULE).ko
 	@echo "Module $(VMALLOC_MODULE) loaded"
 
@@ -97,7 +101,7 @@ unload-vmalloc:
 	rmmod $(VMALLOC_MODULE) || true
 	@echo "Module $(VMALLOC_MODULE) unloaded"
 
-load-kmem_cache: $(BUILD_DIR)/$(KMEM_CACHE_MODULE).ko
+load-kmem_cache:
 	insmod $(BUILD_DIR)/$(KMEM_CACHE_MODULE).ko
 	@echo "Module $(KMEM_CACHE_MODULE) loaded"
 
@@ -105,7 +109,7 @@ unload-kmem-cache:
 	rmmod $(KMEM_CACHE_MODULE) || true
 	@echo "Module $(KMEM_CACHE_MODULE) unloaded"
 
-load-mempool: $(BUILD_DIR)/$(MEMPOOL_MODULE).ko
+load-mempool:
 	insmod $(BUILD_DIR)/$(MEMPOOL_MODULE).ko
 	@echo "Module $(MEMPOOL_MODULE) loaded"
 
@@ -113,7 +117,7 @@ unload-mempool:
 	rmmod $(MEMPOOL_MODULE) || true
 	@echo "Module $(MEMPOOL_MODULE) unloaded"
 
-load-get_page: $(BUILD_DIR)/$(GET_PAGE_MODULE).ko
+load-get_page:
 	insmod $(BUILD_DIR)/$(GET_PAGE_MODULE).ko
 	@echo "Module $(GET_PAGE_MODULE) loaded"
 
@@ -131,6 +135,11 @@ help:
 	@echo "  check-kmalloc    - Test kmalloc module"
 	@echo "  check-vmalloc    - Test vmalloc module"
 	@echo "  check-kmem_cache - Test kmem_cache module"
-	@echo "  check-mempool - Test mempool module"
+	@echo "  check-mempool    - Test mempool module"
+	@echo "  check-get_page   - Test get_page module"
 	@echo "  install          - Install module to system"
 	@echo "  uninstall        - Remove module from system"
+	@echo "  load-kmalloc     - Build and load kmalloc module"
+	@echo "  unload-kmalloc   - Unload kmalloc module
+	@echo "  load-vmalloc     - Build and load vmalloc module"
+	@echo "  unload-vmalloc   - Unload vmalloc module
