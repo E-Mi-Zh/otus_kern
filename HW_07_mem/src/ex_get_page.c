@@ -5,7 +5,7 @@
 #include <linux/init.h>
 #include <linux/gfp.h>
 #include <linux/ktime.h>
-#include <linux/slab.h>
+#include <linux/vmalloc.h>
 
 /* Module parameter for number of pages */
 static unsigned long num_pages = 1;
@@ -52,7 +52,7 @@ static int __init get_page_module_init(void)
 {
 	pr_info("[INIT] %s module loaded\n", KBUILD_MODNAME);
 
-	pages = kmalloc(num_pages * sizeof(struct page*), GFP_KERNEL);
+	pages = vmalloc(num_pages * sizeof(struct page *));
 	if (!pages) {
 		pr_err("[INIT]: fail to alloc pages array!\n");
 		return -ENOMEM;
@@ -65,7 +65,7 @@ static int __init get_page_module_init(void)
 static void __exit get_page_module_exit(void)
 {
 	if (pages != NULL) {
-		kfree(pages);
+		vfree(pages);
 	}
 	pr_info("[EXIT] %s module unloaded\n", KBUILD_MODNAME);
 }
